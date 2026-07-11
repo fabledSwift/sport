@@ -125,7 +125,9 @@ export function weeklySummary({ weights, workouts, dailies, mealChecks, mondayIS
     mealsChecked += Object.values(mealChecks[d] || {}).filter(Boolean).length
   }
 
-  return { sessionsDone, sessionsPlanned, weightDelta, avgWater, avgSleep, mealsChecked, mealsTotal }
+  const cardioMin = days.reduce((s, d) => s + (dailies[d]?.cardio?.min || 0), 0)
+
+  return { sessionsDone, sessionsPlanned, weightDelta, avgWater, avgSleep, mealsChecked, mealsTotal, cardioMin }
 }
 
 // Volume total d'une séance (reps cumulées)

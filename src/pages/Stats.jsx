@@ -95,6 +95,7 @@ export default function Stats() {
           <Metric label="Eau (moy.)" value={`${summary.avgWater.toFixed(1)} verres`} emoji="💧" good={summary.avgWater >= 10} />
           <Metric label="Sommeil (moy.)" value={summary.avgSleep != null ? `${summary.avgSleep.toFixed(1)} h` : '—'} emoji="😴" good={summary.avgSleep >= 7.5} />
           <Metric label="Repas cochés" value={`${summary.mealsChecked}/${summary.mealsTotal}`} emoji="🍽️" good={summary.mealsChecked >= summary.mealsTotal * 0.8} />
+          <Metric label="Cardio" value={`${summary.cardioMin} min`} emoji="🏊" good={summary.cardioMin > 0 && summary.cardioMin <= 120} />
           <Metric label="Photos" value={`${photoCount} au total`} emoji="📸" good={photoCount > 0} />
         </div>
       </Card>

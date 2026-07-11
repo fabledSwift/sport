@@ -160,10 +160,13 @@ export default function Training() {
         {sessionKey === 'repos' && (
           <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
             Mercredi off : c'est aujourd'hui que tes muscles se construisent. Marche tranquille, étirements,
-            et au moins 8 h de sommeil. Le streak ne casse pas le mercredi — et le meal prep, lui, reste le dimanche 🍚.
+            ou 20-30 min de natation cool dans la mer 🌊 — et au moins 8 h de sommeil.
+            Le streak ne casse pas le mercredi, et le meal prep reste le dimanche 🍚.
           </p>
         )}
       </Card>
+
+      {selectedDate === today && <CardioCard />}
 
       {/* Corps de séance */}
       {sessionKey !== 'repos' && !existing && !active && (
@@ -292,6 +295,86 @@ function ExerciseCard({ exId, levelIdx, sets, onValidate, onInfo }) {
         <p className="text-xs font-black text-emerald-400 mt-2 flex items-center gap-1 anim-pop">
           <ChevronUp size={14} /> Toutes les séries au max — niveau suivant débloqué à la fin de la séance !
         </p>
+      )}
+    </Card>
+  )
+}
+
+// Cardio optionnel — la recherche : 2-3 séances cool de 20-40 min / sem (≤ ~120 min)
+// n'interfèrent pas avec la prise de muscle SI on compense les calories brûlées.
+const CARDIO_TYPES = [
+  { id: 'natation', name: 'Natation', emoji: '🏊' },
+  { id: 'course', name: 'Course', emoji: '🏃' },
+  { id: 'marche', name: 'Marche / autre', emoji: '🚶' },
+]
+
+function CardioCard() {
+  const today = todayISO()
+  const [dailies, setDailies] = useStore('dailies', {})
+  const [type, setType] = useState('natation')
+  const [min, setMin] = useState(20)
+
+  const cardio = dailies[today]?.cardio
+  const monday = mondayOf(today)
+  const weekMin = Array.from({ length: 7 }, (_, i) => addDays(monday, i))
+    .reduce((s, d) => s + (dailies[d]?.cardio?.min || 0), 0)
+
+  const save = () =>
+    setDailies((d) => ({ ...d, [today]: { ...d[today], cardio: { type, min } } }))
+  const remove = () =>
+    setDailies((d) => ({ ...d, [today]: { ...d[today], cardio: undefined } }))
+
+  return (
+    <Card className="mt-3">
+      {cardio ? (
+        <>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{CARDIO_TYPES.find((t) => t.id === cardio.type)?.emoji || '🏃'}</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold">
+                Cardio du jour : {CARDIO_TYPES.find((t) => t.id === cardio.type)?.name || cardio.type} · {cardio.min} min
+              </p>
+              <p className="text-xs text-zinc-500">{weekMin} min cette semaine (zone sans interférence : ≤ 120 min)</p>
+            </div>
+            <button onClick={remove} className="press p-2 rounded-xl bg-zinc-800 text-xs font-black text-zinc-500">✕</button>
+          </div>
+          {cardio.min >= 30 && (
+            <p className="text-xs font-semibold text-amber-300/90 mt-2">
+              ⚡ Tu as brûlé ~{Math.round(cardio.min * 9)} kcal — compense avec une collation en plus (ex : smoothie),
+              sinon ta prise ralentit.
+            </p>
+          )}
+        </>
+      ) : (
+        <>
+          <p className="text-sm font-bold mb-0.5">🌊 Cardio du jour (optionnel)</p>
+          <p className="text-xs text-zinc-500 mb-3">
+            Natation cool à volonté après le boulot — de préférence à 3 h+ de la séance, et muscu d'abord.
+            {weekMin > 0 && ` Déjà ${weekMin} min cette semaine.`}
+          </p>
+          <div className="flex items-center gap-2 flex-wrap">
+            {CARDIO_TYPES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setType(t.id)}
+                className={`press rounded-xl px-3 py-2 text-xs font-black ${type === t.id ? 'bg-sky-500/20 text-sky-300' : 'bg-zinc-800 text-zinc-400'}`}
+              >
+                {t.emoji} {t.name}
+              </button>
+            ))}
+            <div className="flex-1" />
+            <Stepper value={min} onChange={(v) => setMin(Math.max(5, v))} min={5} max={120} step={5} suffix="m" />
+            <button onClick={save} className="press rounded-xl bg-sky-500 px-4 py-2.5 text-xs font-black text-zinc-950">
+              OK
+            </button>
+          </div>
+          {weekMin > 120 && (
+            <p className="text-xs font-semibold text-amber-300/90 mt-2">
+              ⚠️ {weekMin} min de cardio cette semaine — au-delà de ~120 min, ça peut freiner la prise de muscle.
+              Garde les séances tranquilles et mange plus.
+            </p>
+          )}
+        </>
       )}
     </Card>
   )
