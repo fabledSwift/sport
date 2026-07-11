@@ -5,7 +5,7 @@ import { Check, History, ChevronUp, Info } from 'lucide-react'
 import { useStore, load } from '../lib/store.js'
 import { todayISO, addDays, mondayOf, fmtShort, JOURS_COURTS, fromISO } from '../lib/dates.js'
 import {
-  EXERCISES, SESSIONS, WEEK_SCHEDULE, sessionForDate, getLevel, levelTarget, shouldLevelUp, unitLabel,
+  EXERCISES, SESSIONS, WEEK_SCHEDULE, WORK_DAYS, sessionForDate, getLevel, levelTarget, shouldLevelUp, unitLabel,
 } from '../lib/program.js'
 import { personalRecords, exerciseHistory, sessionVolume } from '../lib/metrics.js'
 import { computeBadges, BADGES } from '../lib/badges.js'
@@ -159,9 +159,16 @@ export default function Training() {
         </div>
         {sessionKey === 'repos' && (
           <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-            Mercredi off : c'est aujourd'hui que tes muscles se construisent. Marche tranquille, étirements,
-            ou 20-30 min de natation cool dans la mer 🌊 — et au moins 8 h de sommeil.
+            Mercredi off : boulot le matin, récup l'après-midi — c'est aujourd'hui que tes muscles se construisent.
+            Marche tranquille, étirements, ou 20-30 min de natation cool dans la mer 🌊, et au moins 8 h de sommeil.
             Le streak ne casse pas le mercredi, et le meal prep reste le dimanche 🍚.
+          </p>
+        )}
+        {sessionKey !== 'repos' && (
+          <p className="text-xs text-zinc-500 mt-3">
+            {WORK_DAYS.includes(fromISO(selectedDate).getDay())
+              ? '🏖️ Jour de taff (fin à 14 h) : séance idéale vers 16-17 h — rentre, bois ton smoothie, souffle 1 h, puis GO.'
+              : '🌞 Jour libre : grosse séance — le matin au frais c’est le top, et la mer t’attend après.'}
           </p>
         )}
       </Card>

@@ -384,11 +384,16 @@ export const SESSIONS = {
   },
 }
 
-// Planning hebdo : index = getDay() (0 = dimanche) — repos le mercredi
-export const WEEK_SCHEDULE = ['core', 'push-a', 'pull-a', 'repos', 'push-b', 'pull-b', 'arms']
+// Planning hebdo : index = getDay() (0 = dimanche) — repos le mercredi.
+// Boulot lundi→jeudi jusqu'à 14 h : séances courtes après le taff,
+// grosses séances (Push B / Pull B) sur les jours libres (ven/sam).
+export const WEEK_SCHEDULE = ['core', 'push-a', 'pull-a', 'repos', 'arms', 'push-b', 'pull-b']
 
 // Jour de repos automatique (ne casse pas le streak) : 3 = mercredi
 export const REST_DAY = 3
+
+// Jours de boulot (plagiste jusqu'à 14 h) : lundi → jeudi
+export const WORK_DAYS = [1, 2, 3, 4]
 
 export function sessionForDate(iso) {
   const day = new Date(iso.split('-')[0], iso.split('-')[1] - 1, iso.split('-')[2]).getDay()
