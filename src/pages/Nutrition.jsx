@@ -4,6 +4,7 @@ import { ShoppingCart, ChefHat, CalendarDays, CheckCircle2, RefreshCw } from 'lu
 import { useStore } from '../lib/store.js'
 import { DEFAULT_GOALS } from '../lib/config.js'
 import { todayISO, mondayOf, weekDates, fmtShort, JOURS, fromISO } from '../lib/dates.js'
+import { adjustedKcalTarget } from '../lib/metrics.js'
 import {
   MEALS, SLOTS, INGREDIENTS, mealsForDate, effectiveWeekDays, dayTotals, weekPlanFor,
   shoppingList, fmtQty, mealPrepSteps,
@@ -57,9 +58,20 @@ function Jour({ onRecipe }) {
   const [goals] = useStore('goals', DEFAULT_GOALS)
   const [mealChecks, setMealChecks] = useStore('mealChecks', {})
   const [mealSwaps, setMealSwaps] = useStore('mealSwaps', {})
+  const [dailies, setDailies] = useStore('dailies', {})
+  const [burnedInput, setBurnedInput] = useState('')
   const mealIds = mealsForDate(today, mealSwaps)
   const checks = mealChecks[today] || {}
   const totals = dayTotals(mealIds)
+  const daily = dailies[today]
+  const { target: kcalGoal, extra } = adjustedKcalTarget(goals, daily)
+
+  const saveBurned = () => {
+    const v = parseInt(burnedInput, 10)
+    if (!v || v < 0 || v > 6000) return
+    setDailies((d) => ({ ...d, [today]: { ...d[today], burned: v } }))
+    setBurnedInput('')
+  }
 
   const kcalDone = mealIds.reduce((s, id, i) => s + (checks[`${i}`] ? MEALS[id].kcal : 0), 0)
   const protDone = mealIds.reduce((s, id, i) => s + (checks[`${i}`] ? MEALS[id].prot : 0), 0)
@@ -84,15 +96,45 @@ function Jour({ onRecipe }) {
     <div>
       <Card>
         <div className="flex justify-between text-sm font-black mb-1.5">
-          <span>🔥 {kcalDone} / {goals.kcalTarget} kcal</span>
+          <span>🔥 {kcalDone} / {kcalGoal} kcal</span>
           <span className="text-zinc-500 font-bold">plan du jour : ≈ {totals.kcal}</span>
         </div>
-        <ProgressBar value={kcalDone} max={goals.kcalTarget} color="var(--color-accent)" />
+        <ProgressBar value={kcalDone} max={kcalGoal} color="var(--color-accent)" />
+        {extra > 0 && (
+          <p className="text-[11px] font-bold text-amber-300/90 mt-1.5">
+            ⚡ Objectif +{extra} kcal aujourd'hui : grosse dépense détectée ({daily.burned} kcal actives) — ajoute une collation.
+          </p>
+        )}
         <div className="flex justify-between text-sm font-black mt-3 mb-1.5">
           <span>🥩 {protDone} / {goals.proteinTarget} g prot.</span>
           <span className="text-zinc-500 font-bold">plan : ≈ {totals.prot} g</span>
         </div>
         <ProgressBar value={protDone} max={goals.proteinTarget} color="var(--color-good)" />
+      </Card>
+
+      {/* Calories brûlées (app Santé) */}
+      <Card className="mt-3">
+        <div className="flex items-center gap-3">
+          <span className="text-xl">⌚</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold">
+              Calories actives (app Santé)
+              {daily?.burned != null && <span className="text-orange-400"> : {daily.burned} kcal</span>}
+            </p>
+            <p className="text-[11px] text-zinc-500">
+              L'objectif n'augmente que si tu dépasses ta journée normale (~{goals.burnBaseline ?? 700} kcal actives)
+            </p>
+          </div>
+          <input
+            type="text" inputMode="numeric" placeholder={daily?.burned != null ? `${daily.burned}` : '850'}
+            value={burnedInput} onChange={(e) => setBurnedInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && saveBurned()}
+            className="w-20 shrink-0 rounded-xl bg-zinc-800 px-3 py-2.5 text-center font-bold outline-none focus:ring-2 ring-orange-500"
+          />
+          <button onClick={saveBurned} className="press shrink-0 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-black text-zinc-950">
+            OK
+          </button>
+        </div>
       </Card>
 
       <SectionTitle>Coche au fil de la journée</SectionTitle>

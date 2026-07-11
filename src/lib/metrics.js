@@ -138,6 +138,13 @@ export function sessionVolume(workout) {
   )
 }
 
+// Objectif kcal ajusté : la base couvre déjà une journée active normale ;
+// on n'ajoute que le SURPLUS de calories actives (app Santé) au-delà de l'habituel.
+export function adjustedKcalTarget(goals, daily) {
+  const extra = Math.max(0, (daily?.burned || 0) - (goals.burnBaseline ?? 700))
+  return { target: goals.kcalTarget + extra, extra }
+}
+
 export const PR_EXERCISES = ['tractions-pronation', 'dips', 'pompes', 'tractions-supination', 'rowing-australien', 'leg-raises']
 
 export function prLabel(exId) {

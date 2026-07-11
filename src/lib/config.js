@@ -15,6 +15,7 @@ export const DEFAULT_GOALS = {
   proteinTarget: 145,        // g / jour
   waterTarget: 12,           // verres de 25 cl = 3 L (boulot au soleil !)
   sleepTarget: 8,            // heures / nuit
+  burnBaseline: 700,         // kcal actives d'une journée normale (app Santé) — déjà comptées dans les 3 200
 }
 
 // Rythme de prise sain (kg / semaine) — la recherche recommande ~0,25 à 0,5 %

@@ -154,6 +154,9 @@ export default function Stats() {
           <Setting label="Sommeil / nuit (h)">
             <Stepper value={goals.sleepTarget} onChange={(_, d) => setGoals((g) => ({ ...g, sleepTarget: clampStep(g.sleepTarget, d, 6, 10) }))} min={6} max={10} step={0.5} />
           </Setting>
+          <Setting label="Journée normale (kcal actives)">
+            <Stepper value={goals.burnBaseline ?? 700} onChange={(_, d) => setGoals((g) => ({ ...g, burnBaseline: clampStep(g.burnBaseline ?? 700, d, 300, 1500) }))} min={300} max={1500} step={50} />
+          </Setting>
         </div>
         <p className="text-[11px] text-zinc-600 mt-4">
           Transfo du {fmtShort(goals.startDate)} au {fmtShort(goals.endDate)} · départ {goals.startWeight} kg

@@ -5,7 +5,7 @@ import { useStore } from '../lib/store.js'
 import { DEFAULT_GOALS, PROFIL } from '../lib/config.js'
 import { todayISO, fmtLong, diffDays } from '../lib/dates.js'
 import {
-  latestWeight, computeStreak, paceStatus, weeklyPace, projectedWeight, fmtSigned,
+  latestWeight, computeStreak, paceStatus, weeklyPace, projectedWeight, fmtSigned, adjustedKcalTarget,
 } from '../lib/metrics.js'
 import { SESSIONS, sessionForDate } from '../lib/program.js'
 import { mealsForDate, MEALS, dayTotals } from '../lib/nutrition.js'
@@ -47,6 +47,7 @@ export default function Dashboard({ navigate }) {
   const checks = mealChecks[today] || {}
   const kcalDone = todayMealIds.reduce((sum, id, i) => sum + (checks[`${i}`] ? MEALS[id].kcal : 0), 0)
   const totals = dayTotals(todayMealIds)
+  const { target: kcalGoal } = adjustedKcalTarget(goals, dailies[today])
 
   const water = dailies[today]?.water || 0
   const sleep = dailies[today]?.sleep
@@ -170,12 +171,12 @@ export default function Dashboard({ navigate }) {
         </Card>
         <Card onClick={() => navigate('nutrition')}>
           <div className="flex items-center gap-3">
-            <Ring value={kcalDone} max={goals.kcalTarget} size={52} stroke={5} color="var(--color-good)">
+            <Ring value={kcalDone} max={kcalGoal} size={52} stroke={5} color="var(--color-good)">
               <UtensilsCrossed size={16} className="text-emerald-400" />
             </Ring>
             <div>
-              <p className="text-2xl font-black tabular-nums">{Math.round((kcalDone / goals.kcalTarget) * 100)}<span className="text-sm">%</span></p>
-              <p className="text-[11px] text-zinc-500 font-bold">{kcalDone} / {goals.kcalTarget} kcal</p>
+              <p className="text-2xl font-black tabular-nums">{Math.round((kcalDone / kcalGoal) * 100)}<span className="text-sm">%</span></p>
+              <p className="text-[11px] text-zinc-500 font-bold">{kcalDone} / {kcalGoal} kcal</p>
             </div>
           </div>
         </Card>
