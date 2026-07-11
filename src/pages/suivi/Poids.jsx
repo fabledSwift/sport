@@ -53,9 +53,9 @@ export default function Poids() {
             placeholder={last ? last.kg.toFixed(1) : '77.0'}
             value={kgInput} onChange={(e) => setKgInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && save()}
-            className="flex-1 rounded-xl bg-zinc-800 px-4 py-3 text-xl font-black text-center outline-none focus:ring-2 ring-orange-500 tabular-nums"
+            className="flex-1 min-w-0 rounded-xl bg-zinc-800 px-4 py-3 text-xl font-black text-center outline-none focus:ring-2 ring-orange-500 tabular-nums"
           />
-          <button onClick={save} className="press rounded-xl bg-orange-500 px-6 font-black text-zinc-950">
+          <button onClick={save} className="press shrink-0 rounded-xl bg-orange-500 px-5 font-black text-zinc-950">
             Enregistrer
           </button>
         </div>
