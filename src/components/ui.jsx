@@ -80,18 +80,19 @@ export function clampStep(current, delta, min, max) {
   return Math.min(max, Math.max(min, +((current ?? 0) + delta).toFixed(1)))
 }
 
-// Bottom sheet — rendu en portail pour échapper aux ancêtres transformés (animations)
+// Bottom sheet (mobile) / modale centrée (desktop) — portail pour échapper
+// aux ancêtres transformés (animations)
 export function Sheet({ open, onClose, title, children }) {
   if (!open) return null
   return createPortal(
-    <div className="fixed inset-0 z-50 anim-fade-in" onClick={onClose}>
+    <div className="fixed inset-0 z-50 anim-fade-in flex items-end justify-center lg:items-center lg:p-8" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <div
-        className="absolute bottom-0 left-0 right-0 max-h-[88vh] overflow-y-auto rounded-t-3xl bg-card2 border-t border-line p-5 nav-safe anim-fade-up"
+        className="relative w-full max-h-[88vh] lg:max-h-[85vh] overflow-y-auto rounded-t-3xl lg:rounded-3xl lg:max-w-xl border-t lg:border border-line p-5 lg:p-6 nav-safe anim-fade-up"
         onClick={(e) => e.stopPropagation()}
         style={{ background: 'var(--color-card2)' }}
       >
-        <div className="mx-auto w-10 h-1 rounded-full bg-zinc-700 mb-4" />
+        <div className="mx-auto w-10 h-1 rounded-full bg-zinc-700 mb-4 lg:hidden" />
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-extrabold">{title}</h3>
           <button className="press p-2 -m-2 text-zinc-400" onClick={onClose} aria-label="Fermer">
@@ -122,7 +123,7 @@ export function ToastProvider({ children }) {
     <ToastCtx.Provider value={toast}>
       {children}
       {createPortal(
-        <div className="fixed left-4 right-4 z-[60] flex flex-col gap-2 items-center pointer-events-none" style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 6rem)' }}>
+        <div className="fixed left-4 right-4 lg:left-auto lg:right-8 bottom-[calc(env(safe-area-inset-bottom,0px)+6rem)] lg:bottom-8 z-[60] flex flex-col gap-2 items-center lg:items-end pointer-events-none">
           {toasts.map((t) => (
             <div key={t.id} className="anim-pop card px-4 py-3 flex items-center gap-2 shadow-2xl max-w-sm" style={{ background: 'var(--color-card2)' }}>
               <span className="text-lg">{t.emoji}</span>

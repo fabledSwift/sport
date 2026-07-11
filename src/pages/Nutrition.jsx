@@ -28,7 +28,7 @@ export default function Nutrition({ initialSub }) {
         <p className="text-sm text-zinc-500 font-semibold">≈ 3 200 kcal · 145 g de protéines / jour</p>
       </header>
 
-      <div className="flex gap-1.5 mb-4">
+      <div className="flex gap-1.5 mb-4 lg:max-w-md">
         {SUBS.map((s) => (
           <button
             key={s.id}
@@ -96,6 +96,7 @@ function Jour({ onRecipe }) {
       </Card>
 
       <SectionTitle>Coche au fil de la journée</SectionTitle>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
       {mealIds.map((id, i) => {
         const meal = MEALS[id]
         const slot = SLOTS[i]
@@ -129,6 +130,7 @@ function Jour({ onRecipe }) {
           </Card>
         )
       })}
+      </div>
       <p className="text-[11px] text-zinc-600 text-center mt-1 mb-2">
         Pas envie d'un repas ? Touche 🔄 pour le remplacer — les courses et le meal prep s'adaptent tout seuls.
       </p>
@@ -152,6 +154,7 @@ function Semaine({ onRecipe }) {
           Menu pensé meal prep : tu cuisines le dimanche, tu assembles en semaine.
         </p>
       </Card>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
       {dates.map((date, di) => {
         const mealIds = effectiveDays[di]
         const totals = dayTotals(mealIds)
@@ -179,6 +182,7 @@ function Semaine({ onRecipe }) {
           </Card>
         )
       })}
+      </div>
     </div>
   )
 }
@@ -228,6 +232,7 @@ function Courses() {
         <ProgressBar value={done} max={total} className="mt-3" color="var(--color-good)" />
       </Card>
 
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
       {Object.entries(byRayon).map(([rayon, items]) => (
         <div key={rayon} className="mb-4">
           <p className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-2">{rayon}</p>
@@ -252,6 +257,7 @@ function Courses() {
           </Card>
         </div>
       ))}
+      </div>
 
       <Card className="border-emerald-500/20 bg-emerald-500/5">
         <p className="text-xs text-emerald-200/90 leading-relaxed">
@@ -288,6 +294,7 @@ function Prep() {
         <ProgressBar value={done} max={steps.length} className="mt-3" color="var(--color-good)" />
       </Card>
 
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
       {steps.map((step, i) => (
         <Card key={i} className={`mb-2 ${weekChecks[i] ? 'border-emerald-500/30 bg-emerald-500/5' : ''}`}>
           <button onClick={() => toggle(i)} className="press w-full flex items-start gap-3 text-left">
@@ -305,6 +312,7 @@ function Prep() {
           </button>
         </Card>
       ))}
+      </div>
 
       <Card className="border-amber-500/20 bg-amber-500/5">
         <p className="text-xs text-amber-200/90 leading-relaxed">

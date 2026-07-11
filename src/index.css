@@ -30,6 +30,16 @@ body {
 .nav-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
 
+/* Desktop : pas de barre du bas, marge normale */
+@media (min-width: 1024px) {
+  .pb-safe { padding-bottom: 3rem; }
+}
+
+/* Souris : léger survol sur tous les éléments cliquables */
+@media (hover: hover) {
+  .press:hover { filter: brightness(1.12); }
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

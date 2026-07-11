@@ -19,7 +19,7 @@ export default function Suivi({ initialSub }) {
         <h1 className="text-2xl font-black">Suivi</h1>
       </header>
 
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 lg:max-w-md">
         {SUBS.map((s) => (
           <button
             key={s.id}

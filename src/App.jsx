@@ -52,16 +52,49 @@ export default function App() {
   return (
     <ToastProvider>
       <SyncManager />
-      <div className="mx-auto max-w-lg min-h-screen pt-safe">
-        <main className="px-4 pb-safe">
-          {nav.tab === 'home' && <Dashboard navigate={navigate} />}
-          {nav.tab === 'training' && <Training />}
-          {nav.tab === 'nutrition' && <Nutrition initialSub={nav.sub} />}
-          {nav.tab === 'suivi' && <Suivi initialSub={nav.sub} />}
-          {nav.tab === 'stats' && <Stats />}
-        </main>
+      <div className="min-h-screen lg:pl-64">
+        {/* Barre latérale — PC uniquement */}
+        <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 flex-col border-r border-line p-4 z-30" style={{ background: '#100d0b' }}>
+          <div className="flex items-center gap-3 px-2 py-3 mb-4">
+            <img src={`${import.meta.env.BASE_URL}icon.svg`} alt="" className="w-10 h-10 rounded-xl" />
+            <div>
+              <p className="font-black text-lg leading-none">Transfo</p>
+              <p className="text-[11px] text-zinc-500 font-bold mt-1">Mattéo · objectif 83 kg</p>
+            </div>
+          </div>
+          {TABS.map(({ id, name, icon: Icon }) => {
+            const active = nav.tab === id
+            return (
+              <button
+                key={id}
+                onClick={() => navigate(id)}
+                className={`press flex items-center gap-3 rounded-xl px-4 py-3 mb-1 text-sm font-bold ${
+                  active ? 'bg-orange-500/15 text-orange-400' : 'text-zinc-400'
+                }`}
+              >
+                <Icon size={19} strokeWidth={active ? 2.4 : 1.8} />
+                {name}
+              </button>
+            )
+          })}
+          <p className="mt-auto px-2 text-[11px] text-zinc-600 font-semibold leading-relaxed">
+            Mi-juillet → mi-septembre 2026
+            <br />+6 kg de muscle 💪
+          </p>
+        </aside>
 
-        <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-bg/90 backdrop-blur-xl nav-safe" style={{ background: 'rgba(12,10,9,0.92)' }}>
+        <div className="mx-auto max-w-lg lg:max-w-4xl pt-safe">
+          <main className="px-4 lg:px-8 pb-safe">
+            {nav.tab === 'home' && <Dashboard navigate={navigate} />}
+            {nav.tab === 'training' && <Training />}
+            {nav.tab === 'nutrition' && <Nutrition initialSub={nav.sub} />}
+            {nav.tab === 'suivi' && <Suivi initialSub={nav.sub} />}
+            {nav.tab === 'stats' && <Stats />}
+          </main>
+        </div>
+
+        {/* Barre du bas — mobile uniquement */}
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-line backdrop-blur-xl nav-safe" style={{ background: 'rgba(12,10,9,0.92)' }}>
           <div className="mx-auto max-w-lg flex">
             {TABS.map(({ id, name, icon: Icon }) => {
               const active = nav.tab === id
@@ -72,7 +105,7 @@ export default function App() {
                   className="press flex-1 flex flex-col items-center gap-1 pt-3 pb-2"
                 >
                   <Icon size={22} strokeWidth={active ? 2.5 : 1.8} color={active ? 'var(--color-accent)' : '#78716c'} />
-                  <span className={`text-[10px] font-bold ${active ? 'text-[--color-accent]' : 'text-zinc-500'}`} style={active ? { color: 'var(--color-accent)' } : {}}>
+                  <span className={`text-[10px] font-bold ${active ? '' : 'text-zinc-500'}`} style={active ? { color: 'var(--color-accent)' } : {}}>
                     {name}
                   </span>
                 </button>

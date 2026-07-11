@@ -26,6 +26,7 @@ export default function Hydro() {
 
   return (
     <div>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-stretch">
       {/* Eau */}
       <Card>
         <div className="flex items-center gap-4">
@@ -65,7 +66,7 @@ export default function Hydro() {
       </Card>
 
       {/* Sommeil */}
-      <Card className="mt-3">
+      <Card className="mt-3 lg:mt-0">
         <div className="flex items-center gap-4">
           <Ring value={sleep} max={goals.sleepTarget} size={84} stroke={8} color="#a78bfa">
             <div className="text-center">
@@ -86,6 +87,8 @@ export default function Hydro() {
           </div>
         </div>
       </Card>
+
+      </div>
 
       {/* Historique 7 jours */}
       <SectionTitle>7 derniers jours</SectionTitle>

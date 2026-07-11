@@ -70,7 +70,7 @@ export default function Stats() {
 
       {/* Records */}
       <SectionTitle>Records perso</SectionTitle>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
         {PR_EXERCISES.map((exId) => (
           <Card key={exId}>
             <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ export default function Stats() {
       {/* Résumé hebdo */}
       <SectionTitle>Cette semaine</SectionTitle>
       <Card>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-3">
           <Metric label="Séances" value={`${summary.sessionsDone}/${summary.sessionsPlanned}`} emoji="💪" good={summary.sessionsDone >= summary.sessionsPlanned} />
           <Metric label="Poids" value={summary.weightDelta != null ? `${fmtSigned(summary.weightDelta)} kg` : '—'} emoji="⚖️" good={summary.weightDelta > 0} />
           <Metric label="Eau (moy.)" value={`${summary.avgWater.toFixed(1)} verres`} emoji="💧" good={summary.avgWater >= 10} />
@@ -103,7 +103,7 @@ export default function Stats() {
       <SectionTitle right={<span className="text-xs font-black text-zinc-500">{unlocked.size}/{BADGES.length}</span>}>
         Badges
       </SectionTitle>
-      <div className="grid grid-cols-3 gap-2.5 mb-4">
+      <div className="grid grid-cols-3 lg:grid-cols-5 gap-2.5 mb-4">
         {BADGES.map((b) => {
           const has = unlocked.has(b.id)
           return (

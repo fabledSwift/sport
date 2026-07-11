@@ -62,10 +62,7 @@ export default function RestTimer({ timer, onClose }) {
   }
 
   return createPortal(
-    <div
-      className="fixed left-4 right-4 z-40 anim-fade-up"
-      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)' }}
-    >
+    <div className="fixed left-4 right-4 lg:left-auto lg:right-8 lg:w-[26rem] bottom-[calc(env(safe-area-inset-bottom,0px)+5.5rem)] lg:bottom-8 z-40 anim-fade-up">
       <div className="card flex items-center gap-4 px-4 py-3 shadow-2xl" style={{ background: 'var(--color-card2)' }}>
         <Ring value={left} max={total} size={56} stroke={5} color={left <= 5 ? 'var(--color-good)' : 'var(--color-accent)'}>
           <span className="font-extrabold tabular-nums text-sm">{left}</span>

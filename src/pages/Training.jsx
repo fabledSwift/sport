@@ -176,16 +176,18 @@ export default function Training() {
 
       {active && (
         <>
-          {session.exercises.map((exId) => (
-            <ExerciseCard
-              key={exId}
-              exId={exId}
-              levelIdx={getLevel(levels, exId)}
-              sets={active.exercises[exId].sets}
-              onValidate={(setIdx, reps) => validateSet(exId, setIdx, reps)}
-              onInfo={() => setDetail(exId)}
-            />
-          ))}
+          <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
+            {session.exercises.map((exId) => (
+              <ExerciseCard
+                key={exId}
+                exId={exId}
+                levelIdx={getLevel(levels, exId)}
+                sets={active.exercises[exId].sets}
+                onValidate={(setIdx, reps) => validateSet(exId, setIdx, reps)}
+                onInfo={() => setDetail(exId)}
+              />
+            ))}
+          </div>
           <button onClick={finishSession} className="press mt-4 w-full rounded-2xl bg-emerald-500 py-4 text-lg font-black text-zinc-950">
             Terminer la séance ✅
           </button>
@@ -199,6 +201,7 @@ export default function Training() {
       {sessionKey !== 'repos' && !active && !existing && (
         <>
           <SectionTitle>Au programme</SectionTitle>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-x-4 lg:items-start">
           {session.exercises.map((exId) => {
             const lvIdx = getLevel(levels, exId)
             const lv = levelTarget(exId, lvIdx)
@@ -223,6 +226,7 @@ export default function Training() {
               </Card>
             )
           })}
+          </div>
         </>
       )}
 
@@ -297,14 +301,16 @@ function RecapList({ workout }) {
   return (
     <>
       <SectionTitle>Séance réalisée</SectionTitle>
-      {Object.entries(workout.exercises).map(([exId, data]) => (
-        <Card key={exId} className="mb-2">
-          <div className="flex items-center justify-between">
-            <p className="font-bold text-sm">{EXERCISES[exId]?.name || exId}</p>
-            <p className="font-black tabular-nums text-sm text-zinc-300">{data.sets.join(' · ')}</p>
-          </div>
-        </Card>
-      ))}
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-4">
+        {Object.entries(workout.exercises).map(([exId, data]) => (
+          <Card key={exId} className="mb-2">
+            <div className="flex items-center justify-between">
+              <p className="font-bold text-sm">{EXERCISES[exId]?.name || exId}</p>
+              <p className="font-black tabular-nums text-sm text-zinc-300">{data.sets.join(' · ')}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
     </>
   )
 }

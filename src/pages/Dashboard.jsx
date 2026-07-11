@@ -72,6 +72,8 @@ export default function Dashboard({ navigate }) {
         <h1 className="text-2xl font-black">Salut {PROFIL.prenom} 👋</h1>
       </header>
 
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
+      <div className="flex flex-col gap-3">
       {/* Hero poids */}
       <Card className="bg-gradient-to-br from-[#1d1712] to-[#171412]">
         <div className="flex items-end justify-between mb-1">
@@ -110,14 +112,14 @@ export default function Dashboard({ navigate }) {
 
       {/* Alerte rythme */}
       {status.tone === 'warn' && (
-        <Card className="mt-3 border-amber-500/30 bg-amber-500/5">
+        <Card className="border-amber-500/30 bg-amber-500/5">
           <p className="text-sm font-semibold text-amber-300">⚠️ {status.label}</p>
         </Card>
       )}
 
       {/* Pesée du jour */}
       {!weighedToday && (
-        <Card className="mt-3">
+        <Card>
           <div className="flex items-center gap-3">
             <Scale className="text-orange-400 shrink-0" size={22} />
             <div className="flex-1">
@@ -138,7 +140,7 @@ export default function Dashboard({ navigate }) {
 
       {/* Rappel photo */}
       {photosToday === 0 && (
-        <Card className="mt-3 border-orange-500/25" onClick={() => navigate('suivi', 'photos')}>
+        <Card className="border-orange-500/25" onClick={() => navigate('suivi', 'photos')}>
           <div className="flex items-center gap-3">
             <Camera className="text-orange-400" size={22} />
             <div className="flex-1">
@@ -150,8 +152,11 @@ export default function Dashboard({ navigate }) {
         </Card>
       )}
 
+      </div>{/* fin colonne 1 */}
+
+      <div className="flex flex-col gap-3 mt-3 lg:mt-0">
       {/* Stats rapides */}
-      <div className="grid grid-cols-2 gap-3 mt-3">
+      <div className="grid grid-cols-2 gap-3">
         <Card onClick={() => navigate('training')}>
           <div className="flex items-center gap-3">
             <Ring value={streak} max={Math.max(streak, 7)} size={52} stroke={5} color="var(--color-accent)">
@@ -199,7 +204,7 @@ export default function Dashboard({ navigate }) {
       </div>
 
       {/* Séance du jour */}
-      <Card className="mt-3" onClick={() => navigate('training')}>
+      <Card onClick={() => navigate('training')}>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-orange-500/15 flex items-center justify-center text-2xl">
             {session.emoji}
@@ -223,7 +228,7 @@ export default function Dashboard({ navigate }) {
       </Card>
 
       {/* Repas du jour (aperçu) */}
-      <Card className="mt-3" onClick={() => navigate('nutrition')}>
+      <Card onClick={() => navigate('nutrition')}>
         <div className="flex items-center justify-between mb-2">
           <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Repas du jour</p>
           <p className="text-xs font-bold text-zinc-400">≈ {totals.kcal} kcal · {totals.prot} g prot.</p>
@@ -240,6 +245,8 @@ export default function Dashboard({ navigate }) {
           ))}
         </div>
       </Card>
+      </div>{/* fin colonne 2 */}
+      </div>
     </div>
   )
 }

@@ -66,6 +66,7 @@ export default function Photos() {
 
   return (
     <div>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
       {/* Capture du jour */}
       <Card>
         <p className="text-sm font-bold mb-1">Photos du jour</p>
@@ -96,13 +97,22 @@ export default function Photos() {
         </div>
       </Card>
 
-      {/* Comparaison */}
-      <button
-        onClick={openCompare}
-        className="press mt-3 w-full rounded-2xl bg-zinc-800/80 py-3.5 font-black text-sm flex items-center justify-center gap-2"
-      >
-        <GitCompareArrows size={18} className="text-orange-400" /> Comparer avant / après
-      </button>
+      <div className="mt-3 lg:mt-0">
+        {/* Comparaison */}
+        <button
+          onClick={openCompare}
+          className="press w-full rounded-2xl bg-zinc-800/80 py-3.5 font-black text-sm flex items-center justify-center gap-2"
+        >
+          <GitCompareArrows size={18} className="text-orange-400" /> Comparer avant / après
+        </button>
+        <Card className="mt-3 hidden lg:block border-orange-500/15">
+          <p className="text-xs text-zinc-400 leading-relaxed">
+            📸 <b>Le rituel :</b> chaque matin, même endroit, même lumière, torse nu — face, profil, dos.
+            Dans 2 mois, le slider avant/après fera le reste. Les photos se synchronisent avec ton compte.
+          </p>
+        </Card>
+      </div>
+      </div>
 
       {/* Galerie */}
       {dates.length === 0 ? (
@@ -117,7 +127,7 @@ export default function Photos() {
           {dates.map((date) => (
             <div key={date} className="mb-4">
               <p className="text-xs font-bold text-zinc-500 mb-2">{fmtLong(date)}</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 lg:grid-cols-6 gap-2">
                 {byDate[date].map((p) => (
                   <button key={p.key} className="press relative rounded-xl overflow-hidden aspect-[3/4]" onClick={() => setViewer(p)}>
                     <img src={p.url} alt={p.pose} className="w-full h-full object-cover" loading="lazy" />

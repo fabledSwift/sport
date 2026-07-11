@@ -42,6 +42,7 @@ export default function Poids() {
 
   return (
     <div>
+      <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-stretch">
       {/* Saisie */}
       <Card>
         <p className="text-sm font-bold mb-1">{weighedToday ? 'Corriger la pesée du jour' : 'Pesée du jour'}</p>
@@ -61,7 +62,7 @@ export default function Poids() {
       </Card>
 
       {/* Rythme & projection */}
-      <div className="grid grid-cols-2 gap-3 mt-3">
+      <div className="grid grid-cols-2 gap-3 mt-3 lg:mt-0">
         <Card>
           <p className="text-[11px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Rythme</p>
           <p className={`text-2xl font-black tabular-nums ${toneColor}`}>
@@ -81,12 +82,13 @@ export default function Poids() {
       </div>
 
       {/* Alerte / statut */}
-      <Card className={`mt-3 ${status.tone === 'warn' ? 'border-amber-500/30 bg-amber-500/5' : ''}`}>
+      <Card className={`mt-3 lg:col-span-2 lg:mt-0 ${status.tone === 'warn' ? 'border-amber-500/30 bg-amber-500/5' : ''}`}>
         <p className={`text-sm font-semibold ${toneColor}`}>
           {status.tone === 'good' ? '✅ ' : status.tone === 'warn' ? '⚠️ ' : '📊 '}
           {status.label}
         </p>
       </Card>
+      </div>
 
       {/* Graphique */}
       <SectionTitle>Progression</SectionTitle>
