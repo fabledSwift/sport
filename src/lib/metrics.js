@@ -41,12 +41,12 @@ export function paceStatus(pace) {
   if (v < PACE_MIN)
     return {
       code: 'slow', tone: 'warn',
-      label: `Prise trop lente (${fmtSigned(v)} kg/sem). Ajoute ~200-300 kcal/j : une banane + beurre de cacahuète en plus.`,
+      label: `Prise trop lente (${fmtSigned(v)} kg/sem, cible +0,3 à +0,8). Ajoute ~200-300 kcal/j : une banane + beurre de cacahuète en plus.`,
     }
   if (v > PACE_MAX)
     return {
       code: 'fast', tone: 'warn',
-      label: `Prise rapide (${fmtSigned(v)} kg/sem) — risque de gras. Réduis d’~200 kcal/j (smoothie plus léger).`,
+      label: `Prise rapide (${fmtSigned(v)} kg/sem, cible +0,3 à +0,8) — au-delà c’est surtout du gras. Réduis d’~200 kcal/j (smoothie plus léger).`,
     }
   return { code: 'ok', tone: 'good', label: `${fmtSigned(v)} kg/sem — rythme parfait, continue !` }
 }

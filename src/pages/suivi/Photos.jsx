@@ -69,32 +69,30 @@ export default function Photos() {
       <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
       {/* Capture du jour */}
       <Card>
-        <p className="text-sm font-bold mb-1">Photos du jour</p>
-        <p className="text-xs text-zinc-500 mb-3">Même lumière, même distance, même pose — c'est ça qui rend la comparaison bluffante.</p>
-        <div className="grid grid-cols-3 gap-2">
-          {POSES.map((pose) => {
-            const done = todayByPose[pose.id]
-            return (
-              <label key={pose.id} className={`press cursor-pointer rounded-2xl border aspect-[3/4] flex flex-col items-center justify-center gap-1 overflow-hidden relative ${done ? 'border-emerald-500/40' : 'border-dashed border-zinc-700'}`}>
-                {done ? (
-                  <img src={done.url} alt={pose.name} className="absolute inset-0 w-full h-full object-cover" />
-                ) : (
-                  <>
-                    <Camera size={20} className="text-zinc-500" />
-                    <span className="text-lg">{pose.emoji}</span>
-                  </>
-                )}
-                <span className={`text-[11px] font-black z-10 rounded-lg px-2 py-0.5 ${done ? 'bg-black/60 absolute bottom-1.5' : 'text-zinc-400'}`}>
-                  {pose.name} {done && '✔'}
-                </span>
-                <input
-                  type="file" accept="image/*" className="hidden"
-                  onChange={(e) => upload(pose.id, e.target.files?.[0])}
-                />
-              </label>
-            )
-          })}
-        </div>
+        <p className="text-sm font-bold mb-1">Photo du jour</p>
+        <p className="text-xs text-zinc-500 mb-3">Une seule photo, de face — même lumière, même distance, chaque matin. C'est ça qui rend la comparaison bluffante.</p>
+        {POSES.map((pose) => {
+          const done = todayByPose[pose.id]
+          return (
+            <label key={pose.id} className={`press cursor-pointer rounded-2xl border w-36 mx-auto aspect-[3/4] flex flex-col items-center justify-center gap-1 overflow-hidden relative ${done ? 'border-emerald-500/40' : 'border-dashed border-zinc-700'}`}>
+              {done ? (
+                <img src={done.url} alt={pose.name} className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <>
+                  <Camera size={22} className="text-zinc-500" />
+                  <span className="text-xl">{pose.emoji}</span>
+                </>
+              )}
+              <span className={`text-[11px] font-black z-10 rounded-lg px-2 py-0.5 ${done ? 'bg-black/60 absolute bottom-1.5' : 'text-zinc-400'}`}>
+                {done ? 'Prise ✔' : 'Prendre la photo'}
+              </span>
+              <input
+                type="file" accept="image/*" className="hidden"
+                onChange={(e) => upload(pose.id, e.target.files?.[0])}
+              />
+            </label>
+          )
+        })}
       </Card>
 
       <div className="mt-3 lg:mt-0">
@@ -107,7 +105,7 @@ export default function Photos() {
         </button>
         <Card className="mt-3 hidden lg:block border-orange-500/15">
           <p className="text-xs text-zinc-400 leading-relaxed">
-            📸 <b>Le rituel :</b> chaque matin, même endroit, même lumière, torse nu — face, profil, dos.
+            📸 <b>Le rituel :</b> chaque matin, même endroit, même lumière, torse nu, de face.
             Dans 2 mois, le slider avant/après fera le reste. Les photos se synchronisent avec ton compte.
           </p>
         </Card>
@@ -144,24 +142,26 @@ export default function Photos() {
       <Sheet open={!!compare} onClose={() => setCompare(null)} title="Avant / Après">
         {compare && before && after && (
           <>
-            <div className="flex gap-2 mb-3">
-              {POSES.map((pose) => {
-                const count = photos.filter((p) => p.pose === pose.id).length
-                return (
-                  <button
-                    key={pose.id}
-                    disabled={count < 2}
-                    onClick={() => {
-                      const list = photos.filter((p) => p.pose === pose.id)
-                      setCompare({ pose: pose.id, beforeKey: list[0].key, afterKey: list[list.length - 1].key })
-                    }}
-                    className={`flex-1 rounded-xl py-2 text-xs font-black ${compare.pose === pose.id ? 'bg-orange-500 text-zinc-950' : 'bg-zinc-800 text-zinc-400'} disabled:opacity-30`}
-                  >
-                    {pose.emoji} {pose.name}
-                  </button>
-                )
-              })}
-            </div>
+            {POSES.length > 1 && (
+              <div className="flex gap-2 mb-3">
+                {POSES.map((pose) => {
+                  const count = photos.filter((p) => p.pose === pose.id).length
+                  return (
+                    <button
+                      key={pose.id}
+                      disabled={count < 2}
+                      onClick={() => {
+                        const list = photos.filter((p) => p.pose === pose.id)
+                        setCompare({ pose: pose.id, beforeKey: list[0].key, afterKey: list[list.length - 1].key })
+                      }}
+                      className={`flex-1 rounded-xl py-2 text-xs font-black ${compare.pose === pose.id ? 'bg-orange-500 text-zinc-950' : 'bg-zinc-800 text-zinc-400'} disabled:opacity-30`}
+                    >
+                      {pose.emoji} {pose.name}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
             <CompareSlider before={before} after={after} />
             <div className="grid grid-cols-2 gap-2 mt-3">
               <select

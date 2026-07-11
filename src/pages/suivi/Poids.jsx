@@ -69,7 +69,7 @@ export default function Poids() {
             {pace != null ? `${fmtSigned(pace, 2)}` : '—'}
             <span className="text-xs text-zinc-500 font-bold"> kg/sem</span>
           </p>
-          <p className="text-[11px] text-zinc-500 mt-1">cible : +0,5 à +1,0</p>
+          <p className="text-[11px] text-zinc-500 mt-1">cible : +0,3 à +0,8</p>
         </Card>
         <Card>
           <p className="text-[11px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Projection 15 sept.</p>

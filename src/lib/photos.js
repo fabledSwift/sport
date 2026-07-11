@@ -64,8 +64,7 @@ export async function getAllPhotos() {
   return all.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.pose < b.pose ? -1 : 1))
 }
 
+// Une seule photo par jour : de face. Simple et tenable sur 2 mois.
 export const POSES = [
   { id: 'face', name: 'Face', emoji: '🧍' },
-  { id: 'profil', name: 'Profil', emoji: '🚶' },
-  { id: 'dos', name: 'Dos', emoji: '🔙' },
 ]

@@ -17,6 +17,7 @@ export const DEFAULT_GOALS = {
   sleepTarget: 8,            // heures / nuit
 }
 
-// Rythme de prise sain (kg / semaine)
-export const PACE_MIN = 0.5
-export const PACE_MAX = 1.0
+// Rythme de prise sain (kg / semaine) — la recherche recommande ~0,25 à 0,5 %
+// du poids de corps par semaine pour un débutant (au-delà : surtout du gras).
+export const PACE_MIN = 0.3
+export const PACE_MAX = 0.8

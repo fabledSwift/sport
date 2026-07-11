@@ -48,6 +48,17 @@ export const INGREDIENTS = {
   'haricots-rouges':  { name: 'Haricots rouges (boîte, égouttés)', unit: 'g', rayon: 'Épicerie', price: 0.003 },
   'steak-hache':      { name: 'Steak haché surgelé', unit: 'g', rayon: 'Surgelés', price: 0.009 },
   patates:            { name: 'Pommes de terre', unit: 'g', rayon: 'Fruits & légumes', price: 0.0015 },
+  'fromage-blanc':    { name: 'Fromage blanc (3%)', unit: 'g', rayon: 'Frais', price: 0.002 },
+  yaourt:             { name: 'Yaourts nature', unit: 'pc', rayon: 'Frais', price: 0.15 },
+  sardines:           { name: 'Sardines en boîte (égouttées)', unit: 'g', rayon: 'Épicerie', price: 0.011 },
+  maquereau:          { name: 'Filets de maquereau en boîte', unit: 'g', rayon: 'Épicerie', price: 0.011 },
+  tomates:            { name: 'Tomates', unit: 'g', rayon: 'Fruits & légumes', price: 0.0025 },
+  concombre:          { name: 'Concombre', unit: 'g', rayon: 'Fruits & légumes', price: 0.002 },
+  courgette:          { name: 'Courgettes', unit: 'g', rayon: 'Fruits & légumes', price: 0.002 },
+  'lentilles-vertes': { name: 'Lentilles vertes (sèches)', unit: 'g', rayon: 'Épicerie', price: 0.0025 },
+  'haricots-verts':   { name: 'Haricots verts (boîte)', unit: 'g', rayon: 'Épicerie', price: 0.002 },
+  ratatouille:        { name: 'Ratatouille (boîte)', unit: 'g', rayon: 'Épicerie', price: 0.0025 },
+  compote:            { name: 'Compotes (sans sucres ajoutés)', unit: 'pc', rayon: 'Épicerie', price: 0.3 },
 }
 
 // kcal / prot ≈ estimations honnêtes par repas
@@ -104,6 +115,15 @@ export const MEALS = {
     ingredients: [['flocons-avoine', 80], ['lait-entier', 300], ['skyr', 150], ['amandes', 20], ['mix-fruits-secs', 30]],
     recipe: ['Tout dans un grand bol, mélange, mange. Le petit-déj le plus rapide du programme.'],
   },
+  'pdj-fromage-blanc': {
+    name: 'Bowl fromage blanc', emoji: '🥥', slot: 'pdj', kcal: 695, prot: 37, prep: '3 min',
+    ingredients: [['fromage-blanc', 300], ['flocons-avoine', 70], ['banane', 1], ['miel', 15], ['amandes', 15]],
+    recipe: [
+      'Fromage blanc + flocons + miel dans un bol, mélange.',
+      'Banane en rondelles et amandes par-dessus.',
+    ],
+    astuce: 'Le fromage blanc est la protéine la moins chère du rayon frais — 2× moins cher que le skyr.',
+  },
   // ————— COLLATIONS PLAGE —————
   'col-sandwich-thon': {
     name: 'Sandwich thon', emoji: '🥪', slot: 'col', kcal: 460, prot: 34, prep: '4 min',
@@ -143,6 +163,16 @@ export const MEALS = {
     name: 'Tartines cacahuète-miel', emoji: '🍯', slot: 'col', kcal: 500, prot: 17, prep: '2 min',
     ingredients: [['pain-complet', 80], ['beurre-cacahuete', 30], ['miel', 10], ['banane', 1]],
     recipe: ['Deux grosses tartines beurre de cacahuète + miel, banane par-dessus ou à part.'],
+  },
+  'col-fb-pot': {
+    name: 'Pot fromage blanc à emporter', emoji: '🫙', slot: 'col', kcal: 430, prot: 26, prep: '2 min',
+    ingredients: [['fromage-blanc', 250], ['flocons-avoine', 40], ['miel', 15], ['fruit', 1]],
+    recipe: ['Dans un bocal : fromage blanc + flocons + miel. Le fruit à part. Glacière si possible.'],
+  },
+  'col-compote-oeufs': {
+    name: 'Snack plage équilibré', emoji: '🍎', slot: 'col', kcal: 430, prot: 17, prep: '0 min si meal prep',
+    ingredients: [['compote', 2], ['amandes', 25], ['oeuf', 2]],
+    recipe: ['2 œufs durs du meal prep + 2 compotes à boire + une poignée d’amandes. Tient parfaitement au soleil.'],
   },
   // ————— DÉJEUNERS (BOX MEAL PREP) —————
   'dej-riz-poulet': {
@@ -198,6 +228,42 @@ export const MEALS = {
       'Un fruit en dessert. Le déj le plus transportable du programme.',
     ],
   },
+  'dej-salade-lentilles': {
+    name: 'Salade lentilles-thon', emoji: '🥙', slot: 'dej', kcal: 710, prot: 54, prep: 'meal prep',
+    ingredients: [['lentilles-vertes', 90], ['thon', 140], ['tomates', 150], ['huile-olive', 10], ['pain-complet', 60]],
+    recipe: [
+      'Lentilles cuites le dimanche (20 min à l’eau, sans sel au départ).',
+      'Mélange lentilles froides + thon + tomates en dés + huile + vinaigre.',
+      'Le pain à côté. Riche en fer et en fibres, excellente froide.',
+    ],
+    astuce: 'Une des meilleures assiettes santé/prix qui existe : ~2 € la box.',
+  },
+  'dej-taboule-poulet': {
+    name: 'Taboulé poulet d’été', emoji: '🥗', slot: 'dej', kcal: 775, prot: 51, prep: 'meal prep',
+    ingredients: [['semoule', 90], ['poulet', 140], ['tomates', 100], ['concombre', 100], ['pois-chiches', 80], ['huile-olive', 10]],
+    recipe: [
+      'Semoule gonflée à l’eau bouillante (5 min à couvert).',
+      'Ajoute tomates + concombre en dés, pois chiches, poulet du meal prep, huile, citron, menthe si tu as.',
+    ],
+    astuce: 'LE plat de plagiste : frais, léger à digérer, plein de protéines.',
+  },
+  'dej-riz-sardines': {
+    name: 'Box riz-sardines', emoji: '🐟', slot: 'dej', kcal: 715, prot: 36, prep: 'meal prep',
+    ingredients: [['riz', 90], ['sardines', 90], ['tomates', 150], ['pois-chiches', 100], ['huile-olive', 5]],
+    recipe: [
+      'Riz froid du meal prep + sardines égouttées écrasées à la fourchette.',
+      'Tomates en dés + pois chiches + un filet d’huile et de citron.',
+    ],
+    astuce: 'Les sardines = oméga-3 + calcium pour ~1 € la boîte. Le meilleur poisson du supermarché.',
+  },
+  'dej-pates-courgettes': {
+    name: 'Pâtes poulet-courgettes', emoji: '🥒', slot: 'dej', kcal: 795, prot: 53, prep: 'meal prep',
+    ingredients: [['pates', 110], ['poulet', 140], ['courgette', 150], ['huile-olive', 10], ['parmesan', 15]],
+    recipe: [
+      'Courgette en demi-rondelles sautées 5 min à la poêle.',
+      'Mélange avec pâtes et poulet du meal prep, huile, parmesan. Bonne froide aussi.',
+    ],
+  },
   // ————— POST-BOULOT —————
   'smo-gainer': {
     name: 'Smoothie gainer maison', emoji: '🥤', slot: 'smo', kcal: 655, prot: 32, prep: '3 min',
@@ -230,6 +296,16 @@ export const MEALS = {
       'Un café refroidi (ou 1 c.à.c de café soluble) + tout le reste au blender avec des glaçons.',
       'Le boost de fin de journée de plage.',
     ],
+  },
+  'smo-fb-choco': {
+    name: 'Mousse choco protéinée', emoji: '🍮', slot: 'smo', kcal: 450, prot: 31, prep: '3 min',
+    ingredients: [['fromage-blanc', 250], ['lait', 200], ['banane', 1], ['cacao', 15], ['miel', 15]],
+    recipe: ['Tout au blender (ou fouette énergiquement) : texture mousse au chocolat, macros de sportif.'],
+  },
+  'smo-peche': {
+    name: 'Smoothie fruits d’été', emoji: '🍑', slot: 'smo', kcal: 530, prot: 30, prep: '3 min',
+    ingredients: [['skyr', 150], ['yaourt', 1], ['fruit', 2], ['flocons-avoine', 40], ['miel', 15], ['lait', 100]],
+    recipe: ['Pêches ou abricots de saison + skyr + yaourt + flocons + miel + lait, au blender avec des glaçons.'],
   },
   // ————— DÎNERS —————
   'din-omelette': {
@@ -284,6 +360,39 @@ export const MEALS = {
     ],
     astuce: 'Double les doses : le chili est encore meilleur réchauffé le lendemain.',
   },
+  'din-poulet-patates': {
+    name: 'Poulet, patates & haricots verts', emoji: '🍽️', slot: 'din', kcal: 685, prot: 47, prep: '20 min',
+    ingredients: [['poulet', 160], ['patates', 350], ['haricots-verts', 200], ['huile-olive', 10]],
+    recipe: [
+      'Pommes de terre en dés : 8 min au micro-ondes puis dorées à la poêle.',
+      'Poulet du meal prep réchauffé + haricots verts. Le dîner « équilibré de base », efficace.',
+    ],
+  },
+  'din-steak-rata': {
+    name: 'Steak haché, riz & ratatouille', emoji: '🥘', slot: 'din', kcal: 745, prot: 40, prep: '12 min',
+    ingredients: [['steak-hache', 125], ['ratatouille', 200], ['riz', 90], ['parmesan', 15]],
+    recipe: [
+      'Steak haché à la poêle, ratatouille réchauffée dedans.',
+      'Sers sur le riz du meal prep, parmesan par-dessus. Fer + légumes sans effort.',
+    ],
+  },
+  'din-maquereau-patates': {
+    name: 'Maquereau & pommes de terre', emoji: '🎣', slot: 'din', kcal: 735, prot: 37, prep: '15 min',
+    ingredients: [['maquereau', 120], ['patates', 350], ['oeuf', 1], ['pain-complet', 40], ['huile-olive', 5]],
+    recipe: [
+      'Pommes de terre vapeur ou micro-ondes, en salade tiède avec huile et vinaigre.',
+      'Filets de maquereau + 1 œuf dur. Oméga-3 au max pour 2,50 €.',
+    ],
+    astuce: 'Maquereau et sardines : les poissons gras les moins chers, parfaits 2×/semaine.',
+  },
+  'din-curry-pois-chiches': {
+    name: 'Curry poulet-pois chiches', emoji: '🍛', slot: 'din', kcal: 890, prot: 47, prep: '15 min',
+    ingredients: [['pois-chiches', 150], ['poulet', 120], ['lait-coco', 100], ['sauce-tomate', 100], ['riz', 80]],
+    recipe: [
+      'Lait de coco + sauce tomate + curry à la poêle, 3 min.',
+      'Ajoute pois chiches et poulet du meal prep, laisse mijoter 5 min. Sers sur le riz.',
+    ],
+  },
   'din-patates-oeufs': {
     name: 'Poêlée paysanne', emoji: '🥔', slot: 'din', kcal: 730, prot: 34, prep: '20 min',
     ingredients: [['patates', 400], ['oeuf', 3], ['parmesan', 30], ['huile-olive', 10]],
@@ -294,45 +403,47 @@ export const MEALS = {
   },
 }
 
-// Menus des 7 jours (lundi → dimanche) — 4 semaines qui tournent : A, B, C, D
+// Menus des 7 jours (lundi → dimanche) — 4 semaines qui tournent : A, B, C, D.
+// 28 journées différentes, chacune ≈ 3 100-3 400 kcal et ≥ 140 g de protéines
+// (protéines : 1,6-2,2 g/kg recommandés — ici ~2,2 g/kg pour 77 kg).
 export const WEEK_A = [
   ['pdj-porridge', 'col-sandwich-thon', 'dej-riz-poulet', 'smo-choco', 'din-omelette'],
-  ['pdj-skyr', 'col-mix', 'dej-pates-thon', 'smo-gainer', 'din-riz-thon'],
-  ['pdj-porridge', 'col-oeufs', 'dej-riz-poulet', 'smo-choco', 'din-pates-poulet'],
-  ['pdj-skyr', 'col-sandwich-thon', 'dej-pates-thon', 'smo-gainer', 'din-omelette'],
-  ['pdj-porridge', 'col-oeufs', 'dej-riz-poulet', 'smo-choco', 'din-pates-poulet'],
-  ['pdj-skyr', 'col-mix', 'dej-pates-thon', 'smo-gainer', 'din-riz-thon'],
-  ['pdj-oeufs', 'col-mix', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-pates-poulet'],
+  ['pdj-skyr', 'col-fb-pot', 'dej-pates-thon', 'smo-gainer', 'din-poulet-patates'],
+  ['pdj-crepes-avoine', 'col-pain-pb', 'dej-salade-lentilles', 'smo-choco', 'din-steak-rata'],
+  ['pdj-skyr', 'col-oeufs', 'dej-riz-poulet', 'smo-fruits-rouges', 'din-pates-pesto'],
+  ['pdj-porridge', 'col-sandwich-thon', 'dej-taboule-poulet', 'smo-choco', 'din-riz-saute'],
+  ['pdj-fromage-blanc', 'col-wrap-poulet', 'dej-wraps-thon', 'smo-gainer', 'din-chili'],
+  ['pdj-pain-perdu', 'col-fb-pot', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-pates-poulet'],
 ]
 
 export const WEEK_B = [
-  ['pdj-skyr', 'col-oeufs', 'dej-pates-thon', 'smo-gainer', 'din-pates-poulet'],
-  ['pdj-porridge', 'col-sandwich-thon', 'dej-riz-lentilles', 'smo-choco', 'din-omelette'],
-  ['pdj-skyr', 'col-mix', 'dej-riz-poulet', 'smo-gainer', 'din-riz-thon'],
-  ['pdj-porridge', 'col-oeufs', 'dej-pates-thon', 'smo-choco', 'din-pates-poulet'],
-  ['pdj-skyr', 'col-sandwich-thon', 'dej-riz-poulet', 'smo-gainer', 'din-omelette'],
-  ['pdj-porridge', 'col-mix', 'dej-riz-lentilles', 'smo-choco', 'din-riz-thon'],
-  ['pdj-oeufs', 'col-mix', 'dej-riz-poulet', 'smo-skyr-gouter', 'din-pates-poulet'],
+  ['pdj-muesli', 'col-oeufs', 'dej-salade-riz', 'smo-choco', 'din-poulet-patates'],
+  ['pdj-fromage-blanc', 'col-sandwich-thon', 'dej-pates-courgettes', 'smo-peche', 'din-riz-thon'],
+  ['pdj-skyr', 'col-compote-oeufs', 'dej-riz-sardines', 'smo-fb-choco', 'din-pates-poulet'],
+  ['pdj-porridge', 'col-skyr-shake', 'dej-couscous-poulet', 'smo-choco', 'din-maquereau-patates'],
+  ['pdj-crepes-avoine', 'col-oeufs', 'dej-riz-poulet', 'smo-cafe', 'din-curry-pois-chiches'],
+  ['pdj-skyr', 'col-mix', 'dej-wraps-thon', 'smo-gainer', 'din-riz-saute'],
+  ['pdj-oeufs', 'col-pain-pb', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-steak-rata'],
 ]
 
 export const WEEK_C = [
-  ['pdj-crepes-avoine', 'col-wrap-poulet', 'dej-couscous-poulet', 'smo-fruits-rouges', 'din-patates-oeufs'],
-  ['pdj-muesli', 'col-skyr-shake', 'dej-salade-riz', 'smo-cafe', 'din-chili'],
-  ['pdj-porridge', 'col-sandwich-thon', 'dej-riz-poulet', 'smo-choco', 'din-riz-saute'],
-  ['pdj-crepes-avoine', 'col-oeufs', 'dej-wraps-thon', 'smo-choco', 'din-pates-pesto'],
-  ['pdj-muesli', 'col-skyr-shake', 'dej-salade-riz', 'smo-choco', 'din-chili'],
-  ['pdj-skyr', 'col-mix', 'dej-wraps-thon', 'smo-gainer', 'din-riz-saute'],
-  ['pdj-pain-perdu', 'col-pain-pb', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-pates-poulet'],
+  ['pdj-fromage-blanc', 'col-wrap-poulet', 'dej-taboule-poulet', 'smo-fruits-rouges', 'din-omelette'],
+  ['pdj-porridge', 'col-fb-pot', 'dej-salade-lentilles', 'smo-gainer', 'din-pates-pesto'],
+  ['pdj-muesli', 'col-compote-oeufs', 'dej-salade-riz', 'smo-fb-choco', 'din-poulet-patates'],
+  ['pdj-crepes-avoine', 'col-sandwich-thon', 'dej-riz-poulet', 'smo-peche', 'din-chili'],
+  ['pdj-skyr', 'col-oeufs', 'dej-pates-courgettes', 'smo-choco', 'din-maquereau-patates'],
+  ['pdj-pain-perdu', 'col-skyr-shake', 'dej-riz-sardines', 'smo-gainer', 'din-pates-poulet'],
+  ['pdj-fromage-blanc', 'col-mix', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-riz-saute'],
 ]
 
 export const WEEK_D = [
-  ['pdj-muesli', 'col-sandwich-thon', 'dej-salade-riz', 'smo-skyr-gouter', 'din-pates-pesto'],
-  ['pdj-porridge', 'col-wrap-poulet', 'dej-pates-thon', 'smo-fruits-rouges', 'din-patates-oeufs'],
-  ['pdj-crepes-avoine', 'col-skyr-shake', 'dej-couscous-poulet', 'smo-cafe', 'din-riz-thon'],
-  ['pdj-skyr', 'col-pain-pb', 'dej-riz-poulet', 'smo-choco', 'din-chili'],
-  ['pdj-pain-perdu', 'col-oeufs', 'dej-wraps-thon', 'smo-gainer', 'din-riz-saute'],
-  ['pdj-muesli', 'col-mix', 'dej-salade-riz', 'smo-cafe', 'din-pates-poulet'],
-  ['pdj-oeufs', 'col-wrap-poulet', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-riz-thon'],
+  ['pdj-skyr', 'col-pain-pb', 'dej-salade-riz', 'smo-skyr-gouter', 'din-curry-pois-chiches'],
+  ['pdj-crepes-avoine', 'col-sandwich-thon', 'dej-couscous-poulet', 'smo-fb-choco', 'din-riz-thon'],
+  ['pdj-porridge', 'col-fb-pot', 'dej-taboule-poulet', 'smo-peche', 'din-steak-rata'],
+  ['pdj-muesli', 'col-oeufs', 'dej-wraps-thon', 'smo-gainer', 'din-poulet-patates'],
+  ['pdj-fromage-blanc', 'col-wrap-poulet', 'dej-pates-thon', 'smo-fruits-rouges', 'din-riz-saute'],
+  ['pdj-oeufs', 'col-skyr-shake', 'dej-riz-sardines', 'smo-cafe', 'din-pates-pesto'],
+  ['pdj-pain-perdu', 'col-compote-oeufs', 'dej-riz-lentilles', 'smo-skyr-gouter', 'din-omelette'],
 ]
 
 const WEEKS = [
