@@ -257,6 +257,35 @@ export const EXERCISES = {
       { sets: 3, min: 45, max: 60, note: 'Une jambe tendue devant (alterne)' },
     ],
   },
+  // ——— BRAS & POIGNE ———
+  'tractions-commando': {
+    name: 'Tractions commando',
+    muscles: 'Dos · Biceps · Obliques',
+    rest: 150,
+    type: 'reps-side',
+    tip: 'Mains l’une devant l’autre le long de la barre, tire en passant la tête d’un côté puis de l’autre.',
+    levels: [
+      { sets: 3, min: 2, max: 4 },
+      { sets: 3, min: 3, max: 5 },
+      { sets: 4, min: 3, max: 6 },
+      { sets: 4, min: 4, max: 6, note: 'Tempo : 3 s de descente' },
+      { sets: 4, min: 5, max: 8 },
+    ],
+  },
+  'dead-hang': {
+    name: 'Suspension (dead hang)',
+    muscles: 'Poigne · Avant-bras · Épaules',
+    rest: 90,
+    type: 'secs',
+    tip: 'Suspendu bras tendus, épaules actives (légèrement tirées vers le bas). Une poigne d’acier, ça se construit.',
+    levels: [
+      { sets: 3, min: 20, max: 30 },
+      { sets: 3, min: 30, max: 45 },
+      { sets: 3, min: 45, max: 60 },
+      { sets: 3, min: 30, max: 45, note: 'Lesté : sac à dos ~5 kg' },
+      { sets: 3, min: 20, max: 30, note: 'Une main à la fois (l’autre en soutien léger)' },
+    ],
+  },
   // ——— CORE ———
   planche: {
     name: 'Planche',
@@ -323,11 +352,11 @@ export const SESSIONS = {
     emoji: '🦍',
     exercises: ['tractions-pronation', 'tractions-supination', 'rowing-australien', 'scapular-pulls', 'hollow-hold'],
   },
-  'legs-a': {
-    name: 'Legs A',
-    subtitle: 'Jambes force',
-    emoji: '🦵',
-    exercises: ['squats', 'squats-bulgares', 'fentes', 'mollets', 'wall-sit'],
+  arms: {
+    name: 'Bras & Poigne',
+    subtitle: 'Biceps, triceps, avant-bras',
+    emoji: '💪',
+    exercises: ['tractions-supination', 'dips', 'tractions-commando', 'pompes-diamant', 'dead-hang'],
   },
   'push-b': {
     name: 'Push B',
@@ -341,22 +370,25 @@ export const SESSIONS = {
     emoji: '🪽',
     exercises: ['tractions-larges', 'tractions-supination', 'rowing-australien', 'leg-raises', 'superman'],
   },
-  'legs-b': {
-    name: 'Legs B',
-    subtitle: 'Jambes explosives & core',
-    emoji: '⚡',
-    exercises: ['squats-sautes', 'squats-bulgares', 'hip-thrust', 'mollets', 'leg-raises'],
+  core: {
+    name: 'Abdos & Gainage',
+    subtitle: 'Core solide (+ meal prep du dimanche)',
+    emoji: '🧱',
+    exercises: ['leg-raises', 'planche', 'hollow-hold', 'planche-laterale', 'superman'],
   },
   repos: {
     name: 'Repos',
-    subtitle: 'Récupération + meal prep',
+    subtitle: 'Récupération complète',
     emoji: '😴',
     exercises: [],
   },
 }
 
-// Planning hebdo : index = getDay() (0 = dimanche)
-export const WEEK_SCHEDULE = ['repos', 'push-a', 'pull-a', 'legs-a', 'push-b', 'pull-b', 'legs-b']
+// Planning hebdo : index = getDay() (0 = dimanche) — repos le mercredi
+export const WEEK_SCHEDULE = ['core', 'push-a', 'pull-a', 'repos', 'push-b', 'pull-b', 'arms']
+
+// Jour de repos automatique (ne casse pas le streak) : 3 = mercredi
+export const REST_DAY = 3
 
 export function sessionForDate(iso) {
   const day = new Date(iso.split('-')[0], iso.split('-')[1] - 1, iso.split('-')[2]).getDay()

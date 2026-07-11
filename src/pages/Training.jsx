@@ -159,8 +159,8 @@ export default function Training() {
         </div>
         {sessionKey === 'repos' && (
           <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-            Jour off : c'est aujourd'hui que tes muscles se construisent. Au programme — meal prep de la semaine 🍚,
-            marche tranquille, et au moins 8 h de sommeil. Le streak ne casse pas le dimanche.
+            Mercredi off : c'est aujourd'hui que tes muscles se construisent. Marche tranquille, étirements,
+            et au moins 8 h de sommeil. Le streak ne casse pas le mercredi — et le meal prep, lui, reste le dimanche 🍚.
           </p>
         )}
       </Card>

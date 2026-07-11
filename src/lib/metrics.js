@@ -1,7 +1,7 @@
 // Calculs : moyenne mobile, rythme de prise, projection, streak, records.
 import { todayISO, addDays, diffDays, fromISO } from './dates.js'
 import { PACE_MIN, PACE_MAX } from './config.js'
-import { EXERCISES } from './program.js'
+import { EXERCISES, REST_DAY } from './program.js'
 
 // weights: [{date, kg}] — trié par date croissante
 export function sortedWeights(weights) {
@@ -66,17 +66,17 @@ export function projectedWeight(weights, endDate) {
   return last.kg + (pace / 7) * days
 }
 
-// Streak : jours consécutifs validés (séance faite, ou dimanche = repos qui compte)
+// Streak : jours consécutifs validés (séance faite, ou jour de repos qui compte)
 export function computeStreak(workouts) {
   let streak = 0
   let day = todayISO()
   // Aujourd'hui ne casse pas le streak s'il n'est pas encore validé
-  const todayDone = !!workouts[day] || fromISO(day).getDay() === 0
+  const todayDone = !!workouts[day] || fromISO(day).getDay() === REST_DAY
   if (!todayDone) day = addDays(day, -1)
   for (let i = 0; i < 1000; i++) {
-    const isSunday = fromISO(day).getDay() === 0
-    if (workouts[day] || isSunday) {
-      if (workouts[day] || isSunday) streak++
+    const isRest = fromISO(day).getDay() === REST_DAY
+    if (workouts[day] || isRest) {
+      streak++
       day = addDays(day, -1)
     } else break
   }
@@ -107,7 +107,7 @@ export function exerciseHistory(workouts, exId) {
 export function weeklySummary({ weights, workouts, dailies, mealChecks, mondayISO }) {
   const days = Array.from({ length: 7 }, (_, i) => addDays(mondayISO, i)).filter((d) => d <= todayISO())
   const sessionsDone = days.filter((d) => workouts[d]).length
-  const sessionsPlanned = days.filter((d) => fromISO(d).getDay() !== 0).length
+  const sessionsPlanned = days.filter((d) => fromISO(d).getDay() !== REST_DAY).length
 
   const s = sortedWeights(weights)
   const inWeek = s.filter((w) => w.date >= mondayISO)
@@ -136,7 +136,7 @@ export function sessionVolume(workout) {
   )
 }
 
-export const PR_EXERCISES = ['tractions-pronation', 'dips', 'pompes', 'tractions-supination', 'squats-bulgares', 'rowing-australien']
+export const PR_EXERCISES = ['tractions-pronation', 'dips', 'pompes', 'tractions-supination', 'rowing-australien', 'leg-raises']
 
 export function prLabel(exId) {
   return EXERCISES[exId]?.name || exId
