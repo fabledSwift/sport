@@ -224,8 +224,8 @@ function SyncSection() {
       setSheetOpen(false)
       setToken('')
       toast(
-        r.action === 'données-récupérées'
-          ? 'Connecté — données récupérées depuis le cloud !'
+        r.action === 'données-récupérées' || r.action === 'fusionné'
+          ? 'Connecté — données fusionnées avec le cloud !'
           : 'Connecté — tes données sont maintenant sauvegardées en ligne',
         '☁️',
       )
@@ -242,8 +242,11 @@ function SyncSection() {
       const r = await syncNow()
       setCfg(getSyncConfig())
       toast(
-        { 'données-envoyées': 'Données envoyées vers le cloud', 'données-récupérées': 'Données récupérées depuis le cloud' }[r.action]
-          || 'Tout est déjà à jour',
+        {
+          'données-envoyées': 'Données envoyées vers le cloud',
+          'données-récupérées': 'Données récupérées depuis le cloud',
+          'fusionné': 'Données fusionnées entre tes appareils',
+        }[r.action] || 'Tout est déjà à jour',
         '☁️',
       )
     } catch (e) {

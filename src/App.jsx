@@ -9,26 +9,40 @@ import Nutrition from './pages/Nutrition.jsx'
 import Suivi from './pages/Suivi.jsx'
 import Stats from './pages/Stats.jsx'
 
-// Synchro cloud : au lancement, puis automatiquement après chaque changement.
+// Synchro cloud : au lancement, quand on revient sur l'app, et après chaque changement.
 function SyncManager() {
   const toast = useToast()
   useEffect(() => {
-    if (getSyncConfig()?.enabled) {
+    const run = (silent) =>
       syncNow()
         .then((r) => {
-          if (r.action === 'données-récupérées') toast('Données récupérées depuis le cloud', '☁️')
+          if (!silent && (r.action === 'données-récupérées' || r.action === 'fusionné'))
+            toast('Données synchronisées depuis le cloud', '☁️')
           if (r.photos?.down > 0) toast(`${r.photos.down} photo(s) récupérée(s)`, '📸')
         })
         .catch((e) => {
           const c = getSyncConfig()
           if (c) setSyncConfig({ ...c, lastError: String(e.message || e) })
         })
-    }
-    const handler = (e) => {
+
+    if (getSyncConfig()?.enabled) run(false)
+
+    // Après chaque modification locale → synchro différée
+    const onChange = (e) => {
       if (!e.detail.silent && SYNCED_KEYS.includes(e.detail.key)) scheduleSync()
     }
-    window.addEventListener(STORE_EVENT, handler)
-    return () => window.removeEventListener(STORE_EVENT, handler)
+    // De retour sur l'app (onglet ré-affiché) → on récupère tout de suite les dernières données
+    const onVisible = () => {
+      if (document.visibilityState === 'visible' && getSyncConfig()?.enabled) run(true)
+    }
+    window.addEventListener(STORE_EVENT, onChange)
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('focus', onVisible)
+    return () => {
+      window.removeEventListener(STORE_EVENT, onChange)
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('focus', onVisible)
+    }
   }, [toast])
   return null
 }
