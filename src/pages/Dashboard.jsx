@@ -10,7 +10,7 @@ import {
 import { SESSIONS, sessionForDate } from '../lib/program.js'
 import { mealsForDate, MEALS, dayTotals } from '../lib/nutrition.js'
 import { getAllPhotos } from '../lib/photos.js'
-import { Card, ProgressBar, Ring, useToast } from '../components/ui.jsx'
+import { Card, ProgressBar, Ring, useToast, useCountUp } from '../components/ui.jsx'
 import { SessionIcon } from '../components/sessionIcons.jsx'
 import WeightChart from '../components/WeightChart.jsx'
 
@@ -54,6 +54,10 @@ export default function Dashboard({ navigate }) {
   const sleep = dailies[today]?.sleep
 
   const weighedToday = weights.some((w) => w.date === today)
+  const animWeight = useCountUp(current, 1)
+  const animStreak = useCountUp(streak)
+  const animPct = useCountUp(Math.round((kcalDone / kcalGoal) * 100))
+  const animWater = useCountUp(water)
 
   const addWater = () => {
     setDailies((d) => ({ ...d, [today]: { ...d[today], water: (d[today]?.water || 0) + 1 } }))
@@ -82,7 +86,7 @@ export default function Dashboard({ navigate }) {
           <div>
             <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-1">Poids actuel</p>
             <p className="font-display text-6xl leading-none tabular-nums">
-              {current.toFixed(1)}
+              {animWeight}
               <span className="text-2xl text-zinc-500"> kg</span>
             </p>
           </div>
@@ -165,7 +169,7 @@ export default function Dashboard({ navigate }) {
               <Flame size={18} className="text-orange-400" />
             </Ring>
             <div>
-              <p className="font-display text-3xl leading-none tabular-nums">{streak}</p>
+              <p className="font-display text-3xl leading-none tabular-nums">{animStreak}</p>
               <p className="text-[11px] text-zinc-500 font-bold">jours de streak</p>
             </div>
           </div>
@@ -176,7 +180,7 @@ export default function Dashboard({ navigate }) {
               <UtensilsCrossed size={16} className="text-emerald-400" />
             </Ring>
             <div>
-              <p className="font-display text-3xl leading-none tabular-nums">{Math.round((kcalDone / kcalGoal) * 100)}<span className="text-lg">%</span></p>
+              <p className="font-display text-3xl leading-none tabular-nums">{animPct}<span className="text-lg">%</span></p>
               <p className="text-[11px] text-zinc-500 font-bold">{kcalDone} / {kcalGoal} kcal</p>
             </div>
           </div>
@@ -187,7 +191,7 @@ export default function Dashboard({ navigate }) {
               <Droplets size={16} className="text-sky-400" />
             </Ring>
             <div>
-              <p className="font-display text-3xl leading-none tabular-nums">{water}<span className="text-lg text-zinc-500">/{goals.waterTarget}</span></p>
+              <p className="font-display text-3xl leading-none tabular-nums">{animWater}<span className="text-lg text-zinc-500">/{goals.waterTarget}</span></p>
               <p className="text-[11px] text-zinc-500 font-bold">verres · touche = +1</p>
             </div>
           </div>

@@ -7,7 +7,7 @@ const EVENT = 'transfo-store'
 // Clés synchronisées vers le cloud (voir sync.js). sessionDraft et sync restent locaux.
 export const SYNCED_KEYS = [
   'goals', 'weights', 'workouts', 'levels', 'dailies',
-  'mealChecks', 'mealSwaps', 'shoppingChecks', 'prepChecks',
+  'mealChecks', 'mealSwaps', 'shoppingChecks', 'prepChecks', 'measures',
 ]
 
 export function load(key, fallback) {

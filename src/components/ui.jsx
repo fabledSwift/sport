@@ -141,6 +141,68 @@ export function useToast() {
   return useContext(ToastCtx)
 }
 
+// Compteur animé : le nombre "monte" jusqu'à sa valeur à l'affichage
+export function useCountUp(target, decimals = 0, duration = 700) {
+  const [display, setDisplay] = useState(target)
+  const fromRef = useRef(0)
+
+  useEffect(() => {
+    const from = fromRef.current
+    if (from === target) return
+    const start = performance.now()
+    let raf
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration)
+      const eased = 1 - Math.pow(1 - t, 3)
+      setDisplay(from + (target - from) * eased)
+      if (t < 1) raf = requestAnimationFrame(tick)
+      else fromRef.current = target
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target, duration])
+
+  return Number(display).toFixed(decimals)
+}
+
+// Confettis (fin de séance, records…) — pur CSS, aucune dépendance
+const CONFETTI_COLORS = ['#ff8a1e', '#34d399', '#fbbf24', '#38bdf8', '#a78bfa', '#f87171']
+
+export function Confetti({ count = 26 }) {
+  const pieces = useState(() =>
+    Array.from({ length: count }, (_, i) => ({
+      left: Math.random() * 100,
+      delay: Math.random() * 0.4,
+      duration: 1.6 + Math.random() * 1.2,
+      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      rotate: Math.random() * 360,
+      size: 6 + Math.random() * 6,
+    })),
+  )[0]
+
+  return createPortal(
+    <div className="pointer-events-none fixed inset-0 z-[70] overflow-hidden">
+      {pieces.map((p, i) => (
+        <span
+          key={i}
+          style={{
+            position: 'absolute',
+            top: '-3vh',
+            left: `${p.left}%`,
+            width: p.size,
+            height: p.size * 0.45,
+            background: p.color,
+            borderRadius: 2,
+            transform: `rotate(${p.rotate}deg)`,
+            animation: `confettiFall ${p.duration}s ${p.delay}s cubic-bezier(0.2, 0.6, 0.4, 1) forwards`,
+          }}
+        />
+      ))}
+    </div>,
+    document.body,
+  )
+}
+
 // Compte à rebours utilitaire
 export function useCountdown(active, seconds, onDone) {
   const [left, setLeft] = useState(seconds)

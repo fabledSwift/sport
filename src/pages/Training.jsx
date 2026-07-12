@@ -1,17 +1,18 @@
 // Entraînement : séance du jour, validation des séries, timer de repos,
 // progression automatique et historique par exercice.
 import { useMemo, useState } from 'react'
-import { Check, History, ChevronUp, Info, Play, Moon } from 'lucide-react'
+import { Check, History, ChevronUp, Info, Play, Flame } from 'lucide-react'
 import { SessionIcon } from '../components/sessionIcons.jsx'
+import Warmup from '../components/Warmup.jsx'
 import { useStore, load } from '../lib/store.js'
 import { todayISO, addDays, mondayOf, fmtShort, JOURS_COURTS, fromISO } from '../lib/dates.js'
 import {
-  EXERCISES, SESSIONS, WEEK_SCHEDULE, WORK_DAYS, sessionForDate, getLevel, levelTarget, shouldLevelUp, unitLabel,
+  EXERCISES, SESSIONS, WEEK_SCHEDULE, WORK_DAYS, sessionForDate, getLevel, levelTarget, shouldLevelUp, unitLabel, warmupFor,
 } from '../lib/program.js'
 import { personalRecords, exerciseHistory, sessionVolume } from '../lib/metrics.js'
 import { computeBadges, BADGES } from '../lib/badges.js'
 import { DEFAULT_GOALS } from '../lib/config.js'
-import { Card, SectionTitle, Stepper, Sheet, useToast } from '../components/ui.jsx'
+import { Card, SectionTitle, Stepper, Sheet, Confetti, useToast } from '../components/ui.jsx'
 import RestTimer from '../components/RestTimer.jsx'
 
 export default function Training() {
@@ -23,6 +24,7 @@ export default function Training() {
   const [timer, setTimer] = useState(null)
   const [detail, setDetail] = useState(null) // exId pour la fiche
   const [recap, setRecap] = useState(null)
+  const [warmupOpen, setWarmupOpen] = useState(false)
   const toast = useToast()
 
   const monday = mondayOf(today)
@@ -66,6 +68,7 @@ export default function Training() {
 
     const saved = {}
     const levelUps = []
+    const deloads = []
     const newLevels = { ...levels }
     for (const [exId, data] of Object.entries(active.exercises)) {
       const done = data.sets.filter((r) => r != null)
@@ -75,6 +78,20 @@ export default function Training() {
       if (shouldLevelUp(exId, lvIdx, data.sets)) {
         newLevels[exId] = lvIdx + 1
         levelUps.push(exId)
+        continue
+      }
+      // Deload intelligent : 2 séances de suite sous les cibles minimales → niveau -1
+      if (lvIdx > 0) {
+        const lv = levelTarget(exId, lvIdx)
+        const failedToday = done.filter((r) => r >= lv.min).length < lv.sets
+        if (failedToday) {
+          const prev = exerciseHistory(workouts, exId).find((h) => h.level === lvIdx)
+          const prevFailed = prev && prev.sets.filter((r) => r >= lv.min).length < lv.sets
+          if (prevFailed) {
+            newLevels[exId] = lvIdx - 1
+            deloads.push(exId)
+          }
+        }
       }
     }
     if (!Object.keys(saved).length) {
@@ -97,7 +114,7 @@ export default function Training() {
     const nowBadges = computeBadges(badgeInputs(nextWorkouts))
     const newBadges = [...nowBadges].filter((b) => !oldBadges.has(b))
 
-    setRecap({ workout, levelUps, prGains, newBadges, volume: sessionVolume(workout) })
+    setRecap({ workout, levelUps, deloads, prGains, newBadges, volume: sessionVolume(workout) })
   }
 
   function badgeInputs(w = workouts) {
@@ -182,9 +199,14 @@ export default function Training() {
 
       {/* Corps de séance */}
       {sessionKey !== 'repos' && !existing && !active && (
-        <button onClick={startSession} className="press mt-3 w-full rounded-2xl bg-orange-500 py-4 text-lg font-black text-zinc-950 flex items-center justify-center gap-2">
-          <Play size={20} strokeWidth={2.5} fill="currentColor" /> Commencer la séance
-        </button>
+        <>
+          <button onClick={() => setWarmupOpen(true)} className="press mt-3 w-full rounded-2xl border border-orange-500/40 bg-orange-500/10 py-3.5 font-black text-orange-300 flex items-center justify-center gap-2">
+            <Flame size={18} /> Échauffement guidé (4 min)
+          </button>
+          <button onClick={startSession} className="press mt-2 w-full rounded-2xl bg-orange-500 py-4 text-lg font-black text-zinc-950 flex items-center justify-center gap-2">
+            <Play size={20} strokeWidth={2.5} fill="currentColor" /> Commencer la séance
+          </button>
+        </>
       )}
 
       {sessionKey !== 'repos' && !active && existing && <RecapList workout={existing} />}
@@ -247,6 +269,16 @@ export default function Training() {
 
       <ExerciseSheet exId={detail} levels={levels} workouts={workouts} onClose={() => setDetail(null)} />
       <RecapSheet recap={recap} onClose={() => setRecap(null)} />
+      <Warmup
+        open={warmupOpen}
+        moves={warmupFor(sessionKey)}
+        onClose={() => setWarmupOpen(false)}
+        onDone={() => {
+          setWarmupOpen(false)
+          if (!active && !existing) startSession()
+          toast('Échauffé et prêt — bonne séance !', '🔥')
+        }}
+      />
       <RestTimer key={timer?.key} timer={timer} onClose={() => setTimer(null)} />
     </div>
   )
@@ -460,9 +492,10 @@ function RecapSheet({ recap, onClose }) {
   if (!recap) return null
   return (
     <Sheet open={!!recap} onClose={onClose} title="Séance terminée 💪">
+      <Confetti />
       <div className="text-center py-2">
-        <p className="text-5xl mb-2">🎉</p>
-        <p className="font-black text-xl">{recap.volume} reps au total</p>
+        <p className="font-display text-6xl leading-none mb-1">{recap.volume}</p>
+        <p className="font-black text-sm text-zinc-400 uppercase tracking-widest">reps au total</p>
         {recap.workout.durationMin > 0 && (
           <p className="text-sm text-zinc-500 font-semibold">{recap.workout.durationMin} minutes d'effort</p>
         )}
@@ -474,6 +507,17 @@ function RecapSheet({ recap, onClose }) {
           {recap.levelUps.map((exId) => (
             <p key={exId} className="text-sm text-zinc-300">
               <b>{EXERCISES[exId].name}</b> passe au niveau supérieur — nouvelles cibles à la prochaine séance.
+            </p>
+          ))}
+        </div>
+      )}
+
+      {recap.deloads?.length > 0 && (
+        <div className="mt-3 rounded-2xl bg-sky-500/10 border border-sky-500/30 p-4">
+          <p className="font-black text-sky-300 text-sm mb-1">🧠 Deload intelligent</p>
+          {recap.deloads.map((exId) => (
+            <p key={exId} className="text-sm text-zinc-300">
+              <b>{EXERCISES[exId].name}</b> : 2 séances sous les cibles → on redescend d'un niveau pour repartir plus fort. C'est comme ça qu'on progresse.
             </p>
           ))}
         </div>

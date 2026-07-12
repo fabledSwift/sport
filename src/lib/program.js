@@ -395,6 +395,53 @@ export const REST_DAY = 3
 // Jours de boulot (plagiste jusqu'à 14 h) : lundi → jeudi
 export const WORK_DAYS = [1, 2, 3, 4]
 
+// Échauffement guidé (~4 min) — spécifique au type de séance.
+// Monter la température + préparer les articulations = meilleures perfs, moins de blessures.
+const WARMUP_BASE = [
+  { name: 'Jumping jacks', secs: 45, tip: 'Rythme tranquille, juste pour chauffer' },
+  { name: 'Cercles de bras', secs: 30, tip: 'Grands cercles, avant puis arrière' },
+]
+
+export const WARMUPS = {
+  push: [
+    ...WARMUP_BASE,
+    { name: 'Rotations de poignets', secs: 20, tip: 'Dans les deux sens' },
+    { name: 'Scapular push-ups', secs: 30, tip: 'En planche, rapproche/écarte les omoplates' },
+    { name: 'Pompes lentes faciles', secs: 40, tip: '6-8 reps à 50 % d’effort' },
+    { name: 'Ouvertures de poitrine', secs: 30, tip: 'Bras en croix, ouvre grand la cage' },
+  ],
+  pull: [
+    ...WARMUP_BASE,
+    { name: 'Scapular pulls légers', secs: 30, tip: 'Suspendu, hausse/abaisse les omoplates' },
+    { name: 'Dead hang', secs: 25, tip: 'Suspension relâchée, épaules actives à la fin' },
+    { name: 'Rowing australien facile', secs: 40, tip: '6-8 reps tranquilles' },
+    { name: 'Rotations de cou', secs: 20, tip: 'Doucement, dans les deux sens' },
+  ],
+  arms: [
+    ...WARMUP_BASE,
+    { name: 'Rotations de poignets', secs: 20, tip: 'Dans les deux sens' },
+    { name: 'Dead hang', secs: 25, tip: 'Prépare la poigne' },
+    { name: 'Tractions négatives lentes', secs: 40, tip: '2-3 descentes contrôlées' },
+    { name: 'Dips partiels faciles', secs: 30, tip: 'Petite amplitude, 6-8 reps' },
+  ],
+  core: [
+    ...WARMUP_BASE,
+    { name: 'Rotations de hanches', secs: 30, tip: 'Grands cercles de bassin' },
+    { name: 'Chat-vache', secs: 30, tip: 'Dos rond / dos creux, en douceur' },
+    { name: 'Planche courte', secs: 20, tip: 'Juste pour activer le gainage' },
+    { name: 'Balancements de jambes', secs: 30, tip: 'Avant-arrière, chaque jambe' },
+  ],
+}
+
+// Type d'échauffement pour une séance donnée
+export function warmupFor(sessionKey) {
+  if (sessionKey.startsWith('push')) return WARMUPS.push
+  if (sessionKey.startsWith('pull')) return WARMUPS.pull
+  if (sessionKey === 'arms') return WARMUPS.arms
+  if (sessionKey === 'core') return WARMUPS.core
+  return null
+}
+
 export function sessionForDate(iso) {
   const day = new Date(iso.split('-')[0], iso.split('-')[1] - 1, iso.split('-')[2]).getDay()
   return WEEK_SCHEDULE[day]

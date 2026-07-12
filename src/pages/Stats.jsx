@@ -1,6 +1,8 @@
 // Stats : records perso, résumé hebdo, badges, compte & sync, réglages et sauvegarde.
 import { useEffect, useRef, useState } from 'react'
-import { Trophy, Settings, Download, Upload, Cloud, CloudOff, RefreshCw } from 'lucide-react'
+import { Trophy, Settings, Download, Upload, Cloud, CloudOff, RefreshCw, Share2 } from 'lucide-react'
+import { generateShareCard, shareOrDownload } from '../lib/shareCard.js'
+import { computeStreak } from '../lib/metrics.js'
 import { useStore, load, save, SYNCED_KEYS } from '../lib/store.js'
 import { getSyncConfig, setSyncConfig, checkAccess, syncNow } from '../lib/sync.js'
 import { DEFAULT_GOALS } from '../lib/config.js'
@@ -123,6 +125,23 @@ export default function Stats() {
       {/* Compte & synchronisation */}
       <SectionTitle>Compte & Sync</SectionTitle>
       <SyncSection />
+
+      {/* Partage */}
+      <button
+        onClick={async () => {
+          try {
+            const blob = await generateShareCard({ goals, weights, prs, streak: computeStreak(workouts) })
+            const result = await shareOrDownload(blob, `transfo-${today}.png`)
+            if (result === 'downloaded') toast('Carte téléchargée — prête à poster 🖼️')
+            if (result === 'shared') toast('Carte partagée 🖼️')
+          } catch {
+            toast('Impossible de générer la carte', '❌')
+          }
+        }}
+        className="press mt-4 w-full rounded-2xl bg-gradient-to-r from-orange-500 to-emerald-500 py-4 font-black text-zinc-950 flex items-center justify-center gap-2"
+      >
+        <Share2 size={18} /> Partager ma progression
+      </button>
 
       {/* Sauvegarde */}
       <SectionTitle>Données</SectionTitle>

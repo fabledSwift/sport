@@ -36,6 +36,61 @@ body {
   font-weight: 400;
 }
 
+/* Écran de démarrage */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background:
+    radial-gradient(55% 38% at 12% -5%, rgba(255, 138, 30, 0.1), transparent 65%),
+    radial-gradient(45% 32% at 92% 105%, rgba(52, 211, 153, 0.07), transparent 65%),
+    #0c0a09;
+  transition: opacity 0.4s ease;
+}
+#splash img {
+  border-radius: 22px;
+  animation: pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  box-shadow: 0 12px 40px rgba(255, 138, 30, 0.25);
+}
+.splash-name {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.32em;
+  margin-left: 0.32em;
+  color: #f5f0eb;
+  animation: fadeUp 0.5s 0.12s ease both;
+}
+.splash-bar {
+  width: 120px;
+  height: 3px;
+  border-radius: 99px;
+  background: #262019;
+  overflow: hidden;
+  animation: fadeIn 0.4s 0.2s ease both;
+}
+.splash-bar span {
+  display: block;
+  height: 100%;
+  width: 45%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #ff8a1e, #34d399);
+  animation: splashSlide 0.9s ease-in-out infinite;
+}
+@keyframes splashSlide {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(290%); }
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(560deg); opacity: 0.7; }
+}
+#splash.splash-out { opacity: 0; pointer-events: none; }
+
 /* Safe areas iPhone */
 .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem); }
 .nav-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
