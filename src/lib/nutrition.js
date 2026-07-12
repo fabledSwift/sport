@@ -59,6 +59,10 @@ export const INGREDIENTS = {
   'haricots-verts':   { name: 'Haricots verts (boîte)', unit: 'g', rayon: 'Épicerie', price: 0.002 },
   ratatouille:        { name: 'Ratatouille (boîte)', unit: 'g', rayon: 'Épicerie', price: 0.0025 },
   compote:            { name: 'Compotes (sans sucres ajoutés)', unit: 'pc', rayon: 'Épicerie', price: 0.3 },
+  jambon:             { name: 'Jambon blanc', unit: 'g', rayon: 'Frais', price: 0.011 },
+  avocat:             { name: 'Avocats', unit: 'pc', rayon: 'Fruits & légumes', price: 1.0 },
+  'fromage-portions': { name: 'Fromages portions (type Babybel)', unit: 'pc', rayon: 'Frais', price: 0.25 },
+  'poisson-blanc':    { name: 'Poisson blanc surgelé (colin)', unit: 'g', rayon: 'Surgelés', price: 0.007 },
 }
 
 // kcal / prot ≈ estimations honnêtes par repas
@@ -124,6 +128,49 @@ export const MEALS = {
     ],
     astuce: 'Le fromage blanc est la protéine la moins chère du rayon frais — 2× moins cher que le skyr.',
   },
+  'pdj-mug-cake': {
+    name: 'Bowl cake choco-banane', emoji: '🍰', slot: 'pdj', kcal: 705, prot: 30, prep: '5 min',
+    ingredients: [['flocons-avoine', 70], ['oeuf', 2], ['banane', 1], ['cacao', 10], ['miel', 15], ['lait', 100], ['beurre-cacahuete', 15]],
+    recipe: [
+      'Écrase la banane, mélange avec œufs, flocons, cacao, miel et lait dans un grand bol.',
+      '3 min au micro-ondes puissance max. Beurre de cacahuète fondu par-dessus.',
+    ],
+    astuce: 'Un gâteau au petit-déj, texture moelleuse — et pourtant 100 % dans le plan.',
+  },
+  'pdj-omelette-fromage': {
+    name: 'Omelette-fromage & tartines', emoji: '🫓', slot: 'pdj', kcal: 685, prot: 36, prep: '8 min',
+    ingredients: [['oeuf', 3], ['parmesan', 20], ['pain-complet', 80], ['beurre', 10], ['fruit', 1], ['lait', 150]],
+    recipe: ['Omelette de 3 œufs au fromage, tartines beurrées, un fruit et un verre de lait.'],
+  },
+  'pdj-overnight': {
+    name: 'Overnight oats', emoji: '🌙', slot: 'pdj', kcal: 675, prot: 33, prep: '0 min (fait la veille)',
+    ingredients: [['flocons-avoine', 80], ['lait', 250], ['skyr', 100], ['miel', 15], ['mix-fruits-secs', 30]],
+    recipe: [
+      'La veille : tout dans un bocal, mélange, frigo.',
+      'Le matin : attrape le bocal, c’est prêt. Le petit-déj des matins pressés.',
+    ],
+  },
+  'pdj-riz-au-lait': {
+    name: 'Riz au lait du sportif', emoji: '🍚', slot: 'pdj', kcal: 780, prot: 33, prep: 'meal prep',
+    ingredients: [['riz', 60], ['lait-entier', 400], ['miel', 20], ['amandes', 15], ['banane', 1], ['skyr', 100]],
+    recipe: [
+      'Cuis le riz dans le lait à feu doux 25 min (fais-en pour 3 jours le dimanche).',
+      'Sers froid avec miel, skyr, banane et amandes.',
+    ],
+  },
+  'pdj-tartines-pb': {
+    name: 'Tartines PB-banane + skyr', emoji: '🥜', slot: 'pdj', kcal: 650, prot: 40, prep: '3 min',
+    ingredients: [['pain-complet', 100], ['beurre-cacahuete', 25], ['banane', 1], ['skyr', 200], ['miel', 10]],
+    recipe: ['Grosses tartines beurre de cacahuète + banane en rondelles. Bol de skyr au miel à côté.'],
+  },
+  'pdj-croque': {
+    name: 'Croque-monsieur maison ×2', emoji: '🥪', slot: 'pdj', kcal: 670, prot: 40, prep: '10 min',
+    ingredients: [['pain-complet', 100], ['jambon', 80], ['parmesan', 30], ['beurre', 10], ['fruit', 1]],
+    recipe: [
+      'Deux croques : pain, jambon, fromage râpé, à la poêle avec un couvercle (ou grille-pain).',
+      'Un fruit pour finir. Petit-déj salé qui cale bien.',
+    ],
+  },
   // ————— COLLATIONS PLAGE —————
   'col-sandwich-thon': {
     name: 'Sandwich thon', emoji: '🥪', slot: 'col', kcal: 460, prot: 34, prep: '4 min',
@@ -173,6 +220,44 @@ export const MEALS = {
     name: 'Snack plage équilibré', emoji: '🍎', slot: 'col', kcal: 430, prot: 17, prep: '0 min si meal prep',
     ingredients: [['compote', 2], ['amandes', 25], ['oeuf', 2]],
     recipe: ['2 œufs durs du meal prep + 2 compotes à boire + une poignée d’amandes. Tient parfaitement au soleil.'],
+  },
+  'col-jambon': {
+    name: 'Sandwich jambon-beurre', emoji: '🥖', slot: 'col', kcal: 505, prot: 27, prep: '3 min',
+    ingredients: [['pain-complet', 80], ['jambon', 80], ['beurre', 10], ['yaourt', 1], ['fruit', 1]],
+    recipe: ['Le classique : pain, beurre, jambon. Yaourt à boire et fruit à côté.'],
+  },
+  'col-skyr-barre': {
+    name: 'Skyr-barre-banane', emoji: '🍌', slot: 'col', kcal: 430, prot: 28, prep: '1 min',
+    ingredients: [['skyr', 200], ['barre-cereales', 1], ['banane', 1], ['amandes', 20]],
+    recipe: ['Pot de skyr + barre émiettée dedans + banane + amandes. Zéro cuisine.'],
+  },
+  'col-avocat-oeufs': {
+    name: 'Tartine avocat-œufs', emoji: '🥑', slot: 'col', kcal: 460, prot: 22, prep: '4 min',
+    ingredients: [['pain-complet', 80], ['avocat', 0.5], ['oeuf', 2]],
+    recipe: [
+      'Écrase le demi-avocat sur le pain, sel-poivre-citron.',
+      'Œufs durs du meal prep en rondelles par-dessus. Bons gras au menu.',
+    ],
+  },
+  'col-cookies': {
+    name: 'Cookies d’avoine maison', emoji: '🍪', slot: 'col', kcal: 440, prot: 12, prep: 'meal prep',
+    ingredients: [['flocons-avoine', 50], ['beurre-cacahuete', 20], ['miel', 15], ['banane', 1]],
+    recipe: [
+      'Dimanche : écrase 3 bananes + 150g flocons + 60g beurre de cacahuète + miel, forme 9 cookies, 15 min au four à 180°.',
+      'Emporte-en 3 à la plage — la portion indiquée.',
+    ],
+    astuce: 'Se gardent 4-5 jours dans une boîte. Le goûter maison le moins cher du plan.',
+  },
+  'col-lait-choco': {
+    name: 'Lait chocolaté + banane', emoji: '🍫', slot: 'col', kcal: 450, prot: 17, prep: '2 min',
+    ingredients: [['lait-entier', 400], ['cacao', 15], ['miel', 15], ['banane', 1]],
+    recipe: ['Secoue lait + cacao + miel dans une gourde isotherme. La banane voyage à côté.'],
+    astuce: 'Le lait chocolaté est étudié comme boisson de récup : glucides + protéines au bon ratio.',
+  },
+  'col-pain-fromage': {
+    name: 'Pain-fromage-fruit', emoji: '🧀', slot: 'col', kcal: 420, prot: 17, prep: '1 min',
+    ingredients: [['pain-complet', 60], ['fromage-portions', 3], ['fruit', 1]],
+    recipe: ['3 portions de fromage, du pain, un fruit. Le snack qui survit à une journée de sac.'],
   },
   // ————— DÉJEUNERS (BOX MEAL PREP) —————
   'dej-riz-poulet': {
@@ -264,6 +349,54 @@ export const MEALS = {
       'Mélange avec pâtes et poulet du meal prep, huile, parmesan. Bonne froide aussi.',
     ],
   },
+  'dej-wraps-omelette': {
+    name: 'Wraps omelette-fromage', emoji: '🌯', slot: 'dej', kcal: 725, prot: 35, prep: '8 min',
+    ingredients: [['tortilla', 2], ['oeuf', 3], ['parmesan', 20], ['tomates', 100], ['fruit', 1]],
+    recipe: [
+      'Omelette fine de 3 œufs au fromage, roulée dans les tortillas avec les tomates.',
+      'Se mange froid à la plage sans problème.',
+    ],
+  },
+  'dej-pates-jambon': {
+    name: 'Pâtes jambon-crème', emoji: '🍝', slot: 'dej', kcal: 725, prot: 39, prep: 'meal prep',
+    ingredients: [['pates', 130], ['jambon', 80], ['creme', 60], ['legumes', 150], ['parmesan', 10]],
+    recipe: ['Pâtes du meal prep + jambon en lamelles + crème + petits légumes. Réchauffe ou mange froid en salade.'],
+  },
+  'dej-semoule-boulettes': {
+    name: 'Semoule-boulettes maison', emoji: '🧆', slot: 'dej', kcal: 735, prot: 39, prep: 'meal prep',
+    ingredients: [['semoule', 90], ['steak-hache', 100], ['sauce-tomate', 150], ['pois-chiches', 60], ['huile-olive', 5]],
+    recipe: [
+      'Dimanche : forme des boulettes avec le steak haché + épices, cuis-les à la poêle.',
+      'Assemble : semoule + boulettes + sauce tomate + pois chiches.',
+    ],
+  },
+  'dej-pdt-thon': {
+    name: 'Salade pommes de terre-thon', emoji: '🥔', slot: 'dej', kcal: 710, prot: 45, prep: 'meal prep',
+    ingredients: [['patates', 350], ['thon', 140], ['haricots-verts', 150], ['oeuf', 1], ['huile-olive', 10], ['pain-complet', 40]],
+    recipe: [
+      'Pommes de terre cuites le dimanche, en dés avec thon, haricots verts, œuf dur.',
+      'Vinaigrette huile-moutarde. Encore meilleure le lendemain.',
+    ],
+  },
+  'dej-couscous-vege': {
+    name: 'Couscous végé œufs-pois chiches', emoji: '🌱', slot: 'dej', kcal: 825, prot: 38, prep: '10 min',
+    ingredients: [['semoule', 100], ['pois-chiches', 150], ['oeuf', 2], ['legumes', 150], ['huile-olive', 10]],
+    recipe: ['Semoule 5 min à l’eau bouillante + pois chiches + légumes + 2 œufs durs + huile et ras-el-hanout.'],
+    astuce: 'Journée sans viande ni poisson — ton portefeuille et la planète disent merci.',
+  },
+  'dej-pates-sardines': {
+    name: 'Pâtes aux sardines', emoji: '🐟', slot: 'dej', kcal: 730, prot: 38, prep: 'meal prep',
+    ingredients: [['pates', 120], ['sardines', 90], ['sauce-tomate', 150], ['huile-olive', 5]],
+    recipe: [
+      'Écrase les sardines dans la sauce tomate chaude, mélange aux pâtes.',
+      'Classique sicilien, version plagiste. Excellent froid aussi.',
+    ],
+  },
+  'dej-salade-pois-chiches': {
+    name: 'Salade pois chiches-thon', emoji: '🥗', slot: 'dej', kcal: 650, prot: 47, prep: '5 min',
+    ingredients: [['pois-chiches', 200], ['thon', 140], ['tomates', 150], ['concombre', 100], ['huile-olive', 10], ['pain-complet', 60]],
+    recipe: ['Tout dans une boîte : pois chiches égouttés, thon, tomates, concombre, huile-citron. Pain à côté.'],
+  },
   // ————— POST-BOULOT —————
   'smo-gainer': {
     name: 'Smoothie gainer maison', emoji: '🥤', slot: 'smo', kcal: 655, prot: 32, prep: '3 min',
@@ -306,6 +439,35 @@ export const MEALS = {
     name: 'Smoothie fruits d’été', emoji: '🍑', slot: 'smo', kcal: 530, prot: 30, prep: '3 min',
     ingredients: [['skyr', 150], ['yaourt', 1], ['fruit', 2], ['flocons-avoine', 40], ['miel', 15], ['lait', 100]],
     recipe: ['Pêches ou abricots de saison + skyr + yaourt + flocons + miel + lait, au blender avec des glaçons.'],
+  },
+  'smo-milkshake-banane': {
+    name: 'Milkshake banane-miel', emoji: '🥛', slot: 'smo', kcal: 555, prot: 27, prep: '3 min',
+    ingredients: [['lait-entier', 350], ['banane', 1], ['flocons-avoine', 30], ['miel', 20], ['skyr', 100]],
+    recipe: ['Tout au blender avec des glaçons. Le plus simple des post-boulot.'],
+  },
+  'smo-porridge-froid': {
+    name: 'Porridge froid choco', emoji: '🍫', slot: 'smo', kcal: 525, prot: 29, prep: '2 min',
+    ingredients: [['fromage-blanc', 200], ['lait', 150], ['flocons-avoine', 40], ['cacao', 10], ['miel', 15], ['banane', 1]],
+    recipe: ['Mélange tout à la cuillère (pas besoin de blender). Texture crème dessert, macros de sportif.'],
+  },
+  'smo-yaourt-fruits-rouges': {
+    name: 'Smoothie yaourt-fruits rouges', emoji: '🍓', slot: 'smo', kcal: 530, prot: 29, prep: '3 min',
+    ingredients: [['yaourt', 2], ['skyr', 100], ['fruits-rouges', 150], ['flocons-avoine', 40], ['miel', 20], ['lait', 100]],
+    recipe: ['Au blender — les fruits rouges surgelés font office de glaçons.'],
+  },
+  'smo-gouter-tartines': {
+    name: 'Tartines + lait choco', emoji: '🍞', slot: 'smo', kcal: 530, prot: 22, prep: '3 min',
+    ingredients: [['pain-complet', 60], ['beurre-cacahuete', 20], ['lait-entier', 300], ['cacao', 10], ['miel', 10]],
+    recipe: ['Le goûter d’enfance version gains : tartines de beurre de cacahuète + grand lait chocolaté.'],
+  },
+  'smo-nice-cream': {
+    name: 'Glace banane protéinée', emoji: '🍦', slot: 'smo', kcal: 445, prot: 27, prep: '3 min',
+    ingredients: [['banane', 2], ['lait', 100], ['beurre-cacahuete', 15], ['cacao', 10], ['skyr', 150]],
+    recipe: [
+      'Congèle des bananes en rondelles (dimanche).',
+      'Blender : bananes congelées + skyr + lait + cacao + PB = glace crémeuse minute.',
+    ],
+    astuce: 'La « nice cream » : le dessert glacé de l’été qui compte comme un vrai apport.',
   },
   // ————— DÎNERS —————
   'din-omelette': {
@@ -392,6 +554,65 @@ export const MEALS = {
       'Lait de coco + sauce tomate + curry à la poêle, 3 min.',
       'Ajoute pois chiches et poulet du meal prep, laisse mijoter 5 min. Sers sur le riz.',
     ],
+  },
+  'din-gratin-thon': {
+    name: 'Gratin de pâtes au thon', emoji: '🧀', slot: 'din', kcal: 790, prot: 53, prep: '20 min',
+    ingredients: [['pates', 110], ['thon', 140], ['creme', 80], ['parmesan', 30], ['legumes', 150]],
+    recipe: [
+      'Pâtes du meal prep + thon + crème + légumes dans un plat.',
+      'Fromage râpé par-dessus, 12 min au four bien chaud (ou couvercle à la poêle).',
+    ],
+  },
+  'din-hachis': {
+    name: 'Hachis parmentier express', emoji: '🥧', slot: 'din', kcal: 725, prot: 43, prep: '20 min',
+    ingredients: [['patates', 400], ['steak-hache', 125], ['parmesan', 20], ['lait', 100], ['legumes', 100]],
+    recipe: [
+      'Purée maison (patates micro-ondes + lait), steak haché revenu en dessous.',
+      'Fromage râpé, 5 min sous le gril si tu as un four.',
+    ],
+  },
+  'din-curry-oeufs': {
+    name: 'Curry d’œufs coco (végé)', emoji: '🍛', slot: 'din', kcal: 830, prot: 35, prep: '12 min',
+    ingredients: [['riz', 80], ['oeuf', 3], ['lait-coco', 100], ['legumes', 150], ['pois-chiches', 80]],
+    recipe: [
+      'Lait de coco + curry + légumes + pois chiches, 5 min à la poêle.',
+      'Ajoute 3 œufs durs coupés en deux, sers sur le riz.',
+    ],
+  },
+  'din-poelee-poulet': {
+    name: 'Poêlée poulet-légumes du soleil', emoji: '🍗', slot: 'din', kcal: 675, prot: 49, prep: '15 min',
+    ingredients: [['poulet', 160], ['patates', 300], ['courgette', 150], ['huile-olive', 10], ['parmesan', 15]],
+    recipe: ['Tout à la poêle : patates précuites au micro-ondes, poulet du meal prep, courgettes. Fromage à la fin.'],
+  },
+  'din-bolo': {
+    name: 'Spaghetti bolognaise', emoji: '🍝', slot: 'din', kcal: 815, prot: 48, prep: '15 min',
+    ingredients: [['pates', 120], ['steak-hache', 125], ['sauce-tomate', 200], ['parmesan', 15]],
+    recipe: [
+      'Steak haché émietté à la poêle, sauce tomate, origan, 5 min de mijotage.',
+      'Sur les pâtes, parmesan généreux. La valeur sûre.',
+    ],
+  },
+  'din-tortilla-espagnole': {
+    name: 'Tortilla espagnole', emoji: '🇪🇸', slot: 'din', kcal: 750, prot: 35, prep: '18 min',
+    ingredients: [['patates', 350], ['oeuf', 4], ['huile-olive', 10], ['pain-complet', 40]],
+    recipe: [
+      'Pommes de terre en fines tranches dorées à la poêle.',
+      'Verse 4 œufs battus dessus, cuis à couvert 6-8 min. Se mange chaude ou froide.',
+    ],
+  },
+  'din-colin-riz': {
+    name: 'Colin-riz-légumes', emoji: '🐠', slot: 'din', kcal: 685, prot: 44, prep: '15 min',
+    ingredients: [['poisson-blanc', 200], ['riz', 100], ['legumes', 150], ['huile-olive', 10]],
+    recipe: [
+      'Filets de colin surgelés : 8-10 min à la poêle avec un couvercle, citron.',
+      'Riz du meal prep + légumes. Le dîner léger et propre de la semaine.',
+    ],
+    astuce: 'Le poisson blanc surgelé : ~7 €/kg, ultra maigre, parfait le soir.',
+  },
+  'din-puree-jambon': {
+    name: 'Purée maison-jambon-fromage', emoji: '🥔', slot: 'din', kcal: 705, prot: 41, prep: '15 min',
+    ingredients: [['patates', 400], ['lait', 100], ['beurre', 10], ['jambon', 120], ['parmesan', 20], ['legumes', 150]],
+    recipe: ['Purée maison au micro-ondes (patates + lait + beurre), jambon et fromage râpé, légumes à côté.'],
   },
   'din-patates-oeufs': {
     name: 'Poêlée paysanne', emoji: '🥔', slot: 'din', kcal: 730, prot: 34, prep: '20 min',
