@@ -1,16 +1,14 @@
 // Suivi : Poids / Photos / Hydratation & Sommeil
 import { useState } from 'react'
-import { Scale, Camera, Droplets, Ruler } from 'lucide-react'
+import { Scale, Camera, Droplets } from 'lucide-react'
 import Poids from './suivi/Poids.jsx'
 import Photos from './suivi/Photos.jsx'
 import Hydro from './suivi/Hydro.jsx'
-import Mesures from './suivi/Mesures.jsx'
 
 const SUBS = [
   { id: 'poids', name: 'Poids', icon: Scale },
-  { id: 'mesures', name: 'Mesures', icon: Ruler },
   { id: 'photos', name: 'Photos', icon: Camera },
-  { id: 'hydro', name: 'Hydro', icon: Droplets },
+  { id: 'hydro', name: 'Hydro & Sommeil', icon: Droplets },
 ]
 
 export default function Suivi({ initialSub }) {
@@ -32,7 +30,6 @@ export default function Suivi({ initialSub }) {
       </div>
 
       {sub === 'poids' && <Poids />}
-      {sub === 'mesures' && <Mesures />}
       {sub === 'photos' && <Photos />}
       {sub === 'hydro' && <Hydro />}
     </div>
