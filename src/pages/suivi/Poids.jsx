@@ -65,17 +65,17 @@ export default function Poids() {
       <div className="grid grid-cols-2 gap-3 mt-3 lg:mt-0">
         <Card>
           <p className="text-[11px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Rythme</p>
-          <p className={`text-2xl font-black tabular-nums ${toneColor}`}>
+          <p className={`font-display text-3xl leading-none tabular-nums ${toneColor}`}>
             {pace != null ? `${fmtSigned(pace, 2)}` : '—'}
-            <span className="text-xs text-zinc-500 font-bold"> kg/sem</span>
+            <span className="text-sm text-zinc-500"> kg/sem</span>
           </p>
           <p className="text-[11px] text-zinc-500 mt-1">cible : +0,3 à +0,8</p>
         </Card>
         <Card>
           <p className="text-[11px] uppercase tracking-widest text-zinc-500 font-bold mb-1">Projection 15 sept.</p>
-          <p className="text-2xl font-black tabular-nums">
+          <p className="font-display text-3xl leading-none tabular-nums">
             {projection != null ? projection.toFixed(1) : '—'}
-            <span className="text-xs text-zinc-500 font-bold"> kg</span>
+            <span className="text-sm text-zinc-500"> kg</span>
           </p>
           <p className="text-[11px] text-zinc-500 mt-1">objectif : {goals.goalWeight} kg</p>
         </Card>

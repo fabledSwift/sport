@@ -77,9 +77,9 @@ export default function Stats() {
               <Trophy size={15} className={prs[exId] ? 'text-amber-400' : 'text-zinc-700'} />
               <p className="text-[11px] font-bold text-zinc-500 leading-tight">{prLabel(exId)}</p>
             </div>
-            <p className="text-2xl font-black tabular-nums mt-1">
+            <p className="font-display text-3xl leading-none tabular-nums mt-1.5">
               {prs[exId] ? prs[exId].value : '—'}
-              <span className="text-xs text-zinc-500 font-bold"> reps</span>
+              <span className="text-sm text-zinc-500"> reps</span>
             </p>
             {prs[exId] && <p className="text-[10px] text-zinc-600 font-semibold">{fmtShort(prs[exId].date)}</p>}
           </Card>

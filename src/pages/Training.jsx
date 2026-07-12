@@ -1,7 +1,8 @@
 // Entraînement : séance du jour, validation des séries, timer de repos,
 // progression automatique et historique par exercice.
 import { useMemo, useState } from 'react'
-import { Check, History, ChevronUp, Info } from 'lucide-react'
+import { Check, History, ChevronUp, Info, Play, Moon } from 'lucide-react'
+import { SessionIcon } from '../components/sessionIcons.jsx'
 import { useStore, load } from '../lib/store.js'
 import { todayISO, addDays, mondayOf, fmtShort, JOURS_COURTS, fromISO } from '../lib/dates.js'
 import {
@@ -129,16 +130,18 @@ export default function Training() {
             <button
               key={d}
               onClick={() => setSelectedDate(d)}
-              className={`press flex-1 rounded-xl py-2 flex flex-col items-center gap-0.5 border ${
+              className={`press flex-1 rounded-xl py-2 flex flex-col items-center gap-1.5 border ${
                 isSelected ? 'border-orange-500 bg-orange-500/10' : 'border-transparent bg-zinc-800/50'
               }`}
             >
               <span className={`text-[10px] font-black ${isToday ? 'text-orange-400' : 'text-zinc-500'}`}>
                 {JOURS_COURTS[fromISO(d).getDay()]}
               </span>
-              <span className="text-sm">
-                {done ? '✅' : key === 'repos' ? '😴' : missed ? '▫️' : SESSIONS[key].emoji}
-              </span>
+              {done ? (
+                <Check size={15} strokeWidth={3} className="text-emerald-400" />
+              ) : (
+                <SessionIcon session={key} size={15} className={missed ? 'text-zinc-700' : isSelected ? 'text-orange-400' : 'text-zinc-500'} />
+              )}
             </button>
           )
         })}
@@ -147,7 +150,9 @@ export default function Training() {
       {/* En-tête séance */}
       <Card className="bg-gradient-to-br from-[#1d1712] to-[#171412]">
         <div className="flex items-center gap-3">
-          <span className="text-3xl">{session.emoji}</span>
+          <div className="w-12 h-12 rounded-2xl bg-orange-500/15 flex items-center justify-center shrink-0">
+            <SessionIcon session={sessionKey} size={22} className="text-orange-400" />
+          </div>
           <div className="flex-1">
             <p className="font-black text-lg">{session.name}</p>
             <p className="text-xs text-zinc-500 font-semibold">
@@ -177,8 +182,8 @@ export default function Training() {
 
       {/* Corps de séance */}
       {sessionKey !== 'repos' && !existing && !active && (
-        <button onClick={startSession} className="press mt-3 w-full rounded-2xl bg-orange-500 py-4 text-lg font-black text-zinc-950">
-          Commencer la séance 🔥
+        <button onClick={startSession} className="press mt-3 w-full rounded-2xl bg-orange-500 py-4 text-lg font-black text-zinc-950 flex items-center justify-center gap-2">
+          <Play size={20} strokeWidth={2.5} fill="currentColor" /> Commencer la séance
         </button>
       )}
 
@@ -198,8 +203,8 @@ export default function Training() {
               />
             ))}
           </div>
-          <button onClick={finishSession} className="press mt-4 w-full rounded-2xl bg-emerald-500 py-4 text-lg font-black text-zinc-950">
-            Terminer la séance ✅
+          <button onClick={finishSession} className="press mt-4 w-full rounded-2xl bg-emerald-500 py-4 text-lg font-black text-zinc-950 flex items-center justify-center gap-2">
+            <Check size={20} strokeWidth={3} /> Terminer la séance
           </button>
           <button onClick={() => { setDraft(null); setTimer(null) }} className="press mt-2 mb-4 w-full rounded-2xl bg-zinc-800/60 py-3 text-sm font-bold text-zinc-500">
             Abandonner

@@ -29,15 +29,10 @@ export default function Nutrition({ initialSub }) {
         <p className="text-sm text-zinc-500 font-semibold">≈ 3 200 kcal · 145 g de protéines / jour</p>
       </header>
 
-      <div className="flex gap-1.5 mb-4 lg:max-w-md">
+      <div className="seg mb-4 lg:max-w-md">
         {SUBS.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => setSub(s.id)}
-            className={`press flex-1 rounded-xl py-2.5 text-[11px] font-black ${
-              sub === s.id ? 'bg-orange-500 text-zinc-950' : 'bg-zinc-800/70 text-zinc-400'
-            }`}
-          >
+          <button key={s.id} onClick={() => setSub(s.id)} className={`press seg-btn ${sub === s.id ? 'active' : ''}`}>
+            <s.icon size={14} />
             {s.name}
           </button>
         ))}

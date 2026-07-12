@@ -11,6 +11,7 @@ import { SESSIONS, sessionForDate } from '../lib/program.js'
 import { mealsForDate, MEALS, dayTotals } from '../lib/nutrition.js'
 import { getAllPhotos } from '../lib/photos.js'
 import { Card, ProgressBar, Ring, useToast } from '../components/ui.jsx'
+import { SessionIcon } from '../components/sessionIcons.jsx'
 import WeightChart from '../components/WeightChart.jsx'
 
 export default function Dashboard({ navigate }) {
@@ -164,7 +165,7 @@ export default function Dashboard({ navigate }) {
               <Flame size={18} className="text-orange-400" />
             </Ring>
             <div>
-              <p className="text-2xl font-black tabular-nums">{streak}</p>
+              <p className="font-display text-3xl leading-none tabular-nums">{streak}</p>
               <p className="text-[11px] text-zinc-500 font-bold">jours de streak</p>
             </div>
           </div>
@@ -175,7 +176,7 @@ export default function Dashboard({ navigate }) {
               <UtensilsCrossed size={16} className="text-emerald-400" />
             </Ring>
             <div>
-              <p className="text-2xl font-black tabular-nums">{Math.round((kcalDone / kcalGoal) * 100)}<span className="text-sm">%</span></p>
+              <p className="font-display text-3xl leading-none tabular-nums">{Math.round((kcalDone / kcalGoal) * 100)}<span className="text-lg">%</span></p>
               <p className="text-[11px] text-zinc-500 font-bold">{kcalDone} / {kcalGoal} kcal</p>
             </div>
           </div>
@@ -186,7 +187,7 @@ export default function Dashboard({ navigate }) {
               <Droplets size={16} className="text-sky-400" />
             </Ring>
             <div>
-              <p className="text-2xl font-black tabular-nums">{water}<span className="text-sm text-zinc-500">/{goals.waterTarget}</span></p>
+              <p className="font-display text-3xl leading-none tabular-nums">{water}<span className="text-lg text-zinc-500">/{goals.waterTarget}</span></p>
               <p className="text-[11px] text-zinc-500 font-bold">verres · touche = +1</p>
             </div>
           </div>
@@ -197,7 +198,7 @@ export default function Dashboard({ navigate }) {
               <Moon size={16} className="text-violet-400" />
             </Ring>
             <div>
-              <p className="text-2xl font-black tabular-nums">{sleep != null ? `${sleep}h` : '—'}</p>
+              <p className="font-display text-3xl leading-none tabular-nums">{sleep != null ? `${sleep}h` : '—'}</p>
               <p className="text-[11px] text-zinc-500 font-bold">sommeil cette nuit</p>
             </div>
           </div>
@@ -207,8 +208,8 @@ export default function Dashboard({ navigate }) {
       {/* Séance du jour */}
       <Card onClick={() => navigate('training')}>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-orange-500/15 flex items-center justify-center text-2xl">
-            {session.emoji}
+          <div className="w-12 h-12 rounded-2xl bg-orange-500/15 flex items-center justify-center">
+            <SessionIcon session={sessionKey} size={22} className="text-orange-400" />
           </div>
           <div className="flex-1">
             <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
