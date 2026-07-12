@@ -25,7 +25,7 @@ export default function Nutrition({ initialSub }) {
   return (
     <div className="anim-fade-up">
       <header className="pt-6 pb-4">
-        <h1 className="text-2xl font-black">Nutrition</h1>
+        <h1 className="font-display text-4xl">Nutrition</h1>
         <p className="text-sm text-zinc-500 font-semibold">≈ 3 200 kcal · 145 g de protéines / jour</p>
       </header>
 

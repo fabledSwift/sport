@@ -10,6 +10,7 @@
     "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
+    "@fontsource/bebas-neue": "^5.2.7",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

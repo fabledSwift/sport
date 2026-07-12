@@ -16,7 +16,7 @@ export default function Suivi({ initialSub }) {
   return (
     <div className="anim-fade-up">
       <header className="pt-6 pb-4">
-        <h1 className="text-2xl font-black">Suivi</h1>
+        <h1 className="font-display text-4xl">Suivi</h1>
       </header>
 
       <div className="flex gap-2 mb-4 lg:max-w-md">

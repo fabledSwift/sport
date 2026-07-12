@@ -58,7 +58,7 @@ export default function Stats() {
     <div className="anim-fade-up">
       <header className="pt-6 pb-4 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black">Stats & Badges</h1>
+          <h1 className="font-display text-4xl">Stats & Badges</h1>
           <p className="text-sm text-zinc-500 font-semibold">
             {Object.keys(workouts).length} séance{Object.keys(workouts).length > 1 ? 's' : ''} au total
           </p>

@@ -1,6 +1,6 @@
 // Graphique de poids : pesées, moyenne mobile 7 j, ligne d'objectif.
 import {
-  ComposedChart, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer, CartesianGrid,
+  ComposedChart, Line, Area, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer, CartesianGrid,
 } from 'recharts'
 import { withMovingAverage } from '../lib/metrics.js'
 import { addDays, diffDays, fmtDayMonth } from '../lib/dates.js'
@@ -29,6 +29,12 @@ export default function WeightChart({ weights, goals, compact = false }) {
   return (
     <ResponsiveContainer width="100%" height={compact ? 120 : 260}>
       <ComposedChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: compact ? -32 : -20 }}>
+        <defs>
+          <linearGradient id="maFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ff8a1e" stopOpacity={0.28} />
+            <stop offset="100%" stopColor="#ff8a1e" stopOpacity={0} />
+          </linearGradient>
+        </defs>
         {!compact && <CartesianGrid stroke="#221e1a" vertical={false} />}
         <XAxis
           dataKey="date"
@@ -66,6 +72,7 @@ export default function WeightChart({ weights, goals, compact = false }) {
           type="monotone" dataKey="kg" stroke="#a8a29e" strokeWidth={1} strokeOpacity={0.5}
           dot={{ r: compact ? 1.5 : 2.5, fill: '#e7e5e4', strokeWidth: 0 }} connectNulls
         />
+        <Area type="monotone" dataKey="ma" stroke="none" fill="url(#maFill)" connectNulls baseValue="dataMin" tooltipType="none" legendType="none" />
         <Line type="monotone" dataKey="ma" stroke="#ff8a1e" strokeWidth={2.5} dot={false} connectNulls />
       </ComposedChart>
     </ResponsiveContainer>

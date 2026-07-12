@@ -70,7 +70,7 @@ export default function Dashboard({ navigate }) {
     <div className="anim-fade-up">
       <header className="pt-6 pb-4">
         <p className="text-sm text-zinc-500 font-semibold">{fmtLong(today)}</p>
-        <h1 className="text-2xl font-black">Salut {PROFIL.prenom} 👋</h1>
+        <h1 className="font-display text-4xl">Salut {PROFIL.prenom} 👋</h1>
       </header>
 
       <div className="lg:grid lg:grid-cols-2 lg:gap-4 lg:items-start">
@@ -80,9 +80,9 @@ export default function Dashboard({ navigate }) {
         <div className="flex items-end justify-between mb-1">
           <div>
             <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-1">Poids actuel</p>
-            <p className="text-4xl font-black tabular-nums">
+            <p className="font-display text-6xl leading-none tabular-nums">
               {current.toFixed(1)}
-              <span className="text-lg text-zinc-500 font-bold"> kg</span>
+              <span className="text-2xl text-zinc-500"> kg</span>
             </p>
           </div>
           <div className="text-right">

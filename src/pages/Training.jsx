@@ -113,7 +113,7 @@ export default function Training() {
   return (
     <div className="anim-fade-up">
       <header className="pt-6 pb-4">
-        <h1 className="text-2xl font-black">Entraînement</h1>
+        <h1 className="font-display text-4xl">Entraînement</h1>
         <p className="text-sm text-zinc-500 font-semibold">6 séances / semaine · barre & station de dips</p>
       </header>
 

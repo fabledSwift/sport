@@ -58,7 +58,7 @@ export default function App() {
           <div className="flex items-center gap-3 px-2 py-3 mb-4">
             <img src={`${import.meta.env.BASE_URL}icon.svg`} alt="" className="w-10 h-10 rounded-xl" />
             <div>
-              <p className="font-black text-lg leading-none">Transfo</p>
+              <p className="font-display text-2xl leading-none">Transfo</p>
               <p className="text-[11px] text-zinc-500 font-bold mt-1">Mattéo · objectif 83 kg</p>
             </div>
           </div>
