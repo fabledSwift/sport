@@ -339,42 +339,27 @@ export const EXERCISES = {
   },
 }
 
+// Full-body : un peu de tout à chaque séance (dos + pecs + triceps + abdos).
+// 3 variantes qui tournent pour varier les angles ; chaque muscle est
+// travaillé ~4-6×/semaine, ce qui est excellent pour prendre du muscle.
 export const SESSIONS = {
-  'push-a': {
-    name: 'Push A',
-    subtitle: 'Dips & pectoraux',
-    emoji: '🔥',
-    exercises: ['dips', 'pompes', 'pike-pushups', 'pompes-diamant', 'planche'],
+  'full-a': {
+    name: 'Complet A',
+    subtitle: 'Dos · Pecs · Abdos',
+    emoji: '🅰️',
+    exercises: ['tractions-pronation', 'dips', 'pompes', 'leg-raises', 'planche'],
   },
-  'pull-a': {
-    name: 'Pull A',
-    subtitle: 'Tractions force',
-    emoji: '🦍',
-    exercises: ['tractions-pronation', 'tractions-supination', 'rowing-australien', 'scapular-pulls', 'hollow-hold'],
+  'full-b': {
+    name: 'Complet B',
+    subtitle: 'Biceps · Épaules · Gainage',
+    emoji: '🅱️',
+    exercises: ['tractions-supination', 'pike-pushups', 'pompes-diamant', 'hollow-hold', 'planche-laterale'],
   },
-  arms: {
-    name: 'Bras & Poigne',
-    subtitle: 'Biceps, triceps, avant-bras',
-    emoji: '💪',
-    exercises: ['tractions-supination', 'dips', 'tractions-commando', 'pompes-diamant', 'dead-hang'],
-  },
-  'push-b': {
-    name: 'Push B',
-    subtitle: 'Pompes & volume',
-    emoji: '💥',
-    exercises: ['pompes-larges', 'dips', 'pompes', 'pike-pushups', 'planche-laterale'],
-  },
-  'pull-b': {
-    name: 'Pull B',
-    subtitle: 'Largeur de dos & abdos',
-    emoji: '🪽',
-    exercises: ['tractions-larges', 'tractions-supination', 'rowing-australien', 'leg-raises', 'superman'],
-  },
-  core: {
-    name: 'Abdos & Gainage',
-    subtitle: 'Core solide (+ meal prep du dimanche)',
-    emoji: '🧱',
-    exercises: ['leg-raises', 'planche', 'hollow-hold', 'planche-laterale', 'superman'],
+  'full-c': {
+    name: 'Complet C',
+    subtitle: 'Dos large · Pecs · Core',
+    emoji: '🅲',
+    exercises: ['tractions-larges', 'pompes-larges', 'rowing-australien', 'superman', 'leg-raises'],
   },
   repos: {
     name: 'Repos',
@@ -385,9 +370,8 @@ export const SESSIONS = {
 }
 
 // Planning hebdo : index = getDay() (0 = dimanche) — repos le mercredi.
-// Boulot lundi→jeudi jusqu'à 14 h : séances courtes après le taff,
-// grosses séances (Push B / Pull B) sur les jours libres (ven/sam).
-export const WEEK_SCHEDULE = ['core', 'push-a', 'pull-a', 'repos', 'arms', 'push-b', 'pull-b']
+// Full-body tous les jours, les 3 variantes tournent (chacune 2×/semaine).
+export const WEEK_SCHEDULE = ['full-c', 'full-a', 'full-b', 'repos', 'full-c', 'full-a', 'full-b']
 
 // Jour de repos automatique (ne casse pas le streak) : 3 = mercredi
 export const REST_DAY = 3
@@ -433,8 +417,19 @@ export const WARMUPS = {
   ],
 }
 
+// Échauffement full-body : haut du corps complet, avant chaque séance
+WARMUPS.full = [
+  { name: 'Jumping jacks', secs: 45, tip: 'Rythme tranquille, juste pour chauffer' },
+  { name: 'Cercles de bras', secs: 30, tip: 'Grands cercles, avant puis arrière' },
+  { name: 'Rotations de poignets & épaules', secs: 25, tip: 'Dans les deux sens' },
+  { name: 'Scapular pulls légers', secs: 30, tip: 'Suspendu, hausse/abaisse les omoplates' },
+  { name: 'Pompes lentes faciles', secs: 30, tip: '6-8 reps à 50 % d’effort' },
+  { name: 'Rowing australien facile', secs: 30, tip: '6-8 reps tranquilles' },
+]
+
 // Type d'échauffement pour une séance donnée
 export function warmupFor(sessionKey) {
+  if (sessionKey.startsWith('full')) return WARMUPS.full
   if (sessionKey.startsWith('push')) return WARMUPS.push
   if (sessionKey.startsWith('pull')) return WARMUPS.pull
   if (sessionKey === 'arms') return WARMUPS.arms

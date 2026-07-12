@@ -2,13 +2,17 @@
 import { Dumbbell, Grip, Zap, Activity, Shield, Moon, BicepsFlexed } from 'lucide-react'
 
 const ICONS = {
+  'full-a': Dumbbell,
+  'full-b': BicepsFlexed,
+  'full-c': Activity,
+  repos: Moon,
+  // anciennes clés (historique) — conservées pour l'affichage des séances passées
   'push-a': Dumbbell,
   'pull-a': Grip,
   'push-b': Zap,
   'pull-b': Activity,
   arms: BicepsFlexed,
   core: Shield,
-  repos: Moon,
 }
 
 export function SessionIcon({ session, size = 20, className = '' }) {
