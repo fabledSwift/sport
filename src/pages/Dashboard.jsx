@@ -1,6 +1,6 @@
 // Dashboard : vue d'ensemble de la transfo.
 import { useEffect, useMemo, useState } from 'react'
-import { Flame, Droplets, Moon, UtensilsCrossed, ChevronRight, Camera, Scale } from 'lucide-react'
+import { Flame, Droplets, Moon, UtensilsCrossed, ChevronRight, Camera, Scale, Pill } from 'lucide-react'
 import { useStore } from '../lib/store.js'
 import { DEFAULT_GOALS, PROFIL } from '../lib/config.js'
 import { todayISO, fmtLong, diffDays } from '../lib/dates.js'
@@ -61,6 +61,12 @@ export default function Dashboard({ navigate }) {
 
   const addWater = () => {
     setDailies((d) => ({ ...d, [today]: { ...d[today], water: (d[today]?.water || 0) + 1 } }))
+  }
+
+  const creatineDone = !!dailies[today]?.creatine
+  const takeCreatine = () => {
+    setDailies((d) => ({ ...d, [today]: { ...d[today], creatine: true } }))
+    toast(`Créatine prise · ${goals.creatineDose} g 💊`, '✅')
   }
 
   const saveWeight = () => {
@@ -154,6 +160,22 @@ export default function Dashboard({ navigate }) {
               <p className="text-xs text-zinc-500">Même endroit, même lumière, même pose</p>
             </div>
             <ChevronRight size={18} className="text-zinc-600" />
+          </div>
+        </Card>
+      )}
+
+      {/* Rappel créatine */}
+      {goals.creatine && !creatineDone && (
+        <Card className="border-emerald-500/25">
+          <div className="flex items-center gap-3">
+            <Pill className="text-emerald-400 shrink-0" size={22} />
+            <div className="flex-1">
+              <p className="text-sm font-bold">💊 Créatine du jour</p>
+              <p className="text-xs text-zinc-500">{goals.creatineDose} g — tous les jours, même repos</p>
+            </div>
+            <button onClick={takeCreatine} className="press rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-zinc-950">
+              Prise ✓
+            </button>
           </div>
         </Card>
       )}

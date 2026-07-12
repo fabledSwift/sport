@@ -1,8 +1,9 @@
-// Hydratation & sommeil — trackers simples pour un plagiste au soleil.
-import { Droplets, Moon } from 'lucide-react'
+// Hydratation, sommeil & créatine — trackers simples pour un plagiste au soleil.
+import { Droplets, Moon, Pill, Flame } from 'lucide-react'
 import { useStore } from '../../lib/store.js'
 import { DEFAULT_GOALS } from '../../lib/config.js'
 import { todayISO, addDays, JOURS_COURTS, fromISO } from '../../lib/dates.js'
+import { creatineStreak } from '../../lib/metrics.js'
 import { Card, SectionTitle, Ring } from '../../components/ui.jsx'
 
 export default function Hydro() {
@@ -12,6 +13,11 @@ export default function Hydro() {
 
   const water = dailies[today]?.water || 0
   const sleep = dailies[today]?.sleep ?? 0
+  const creatineDone = !!dailies[today]?.creatine
+  const creaStreak = creatineStreak(dailies)
+
+  const toggleCreatine = () =>
+    setDailies((d) => ({ ...d, [today]: { ...d[today], creatine: !d[today]?.creatine } }))
 
   // Mises à jour fonctionnelles : robustes même en tapotant très vite
   const addWater = (n) =>
@@ -89,6 +95,52 @@ export default function Hydro() {
       </Card>
 
       </div>
+
+      {/* Créatine */}
+      <Card className={`mt-3 ${creatineDone ? 'border-emerald-500/30' : ''}`}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleCreatine}
+            className={`press w-16 h-16 shrink-0 rounded-2xl flex flex-col items-center justify-center gap-0.5 ${
+              creatineDone ? 'bg-emerald-500 text-zinc-950' : 'bg-zinc-800 text-zinc-400'
+            }`}
+          >
+            <Pill size={20} />
+            <span className="text-[10px] font-black">{creatineDone ? 'PRISE ✓' : 'À PRENDRE'}</span>
+          </button>
+          <div className="flex-1">
+            <p className="font-extrabold">Créatine · {goals.creatineDose} g</p>
+            <p className="text-xs text-zinc-500 mb-1">
+              {creatineDone ? 'Fait pour aujourd\'hui 💪' : 'Touche quand tu l\'as prise'}
+            </p>
+            {creaStreak > 0 && (
+              <p className="text-xs font-bold text-orange-400 flex items-center gap-1">
+                <Flame size={13} /> {creaStreak} jour{creaStreak > 1 ? 's' : ''} d'affilée
+              </p>
+            )}
+          </div>
+        </div>
+        {/* Historique 7 jours */}
+        <div className="flex gap-1.5 mt-3">
+          {last7.map((d) => (
+            <div key={d} className="flex-1 flex flex-col items-center gap-1">
+              <div className={`w-full h-8 rounded-lg flex items-center justify-center ${dailies[d]?.creatine ? 'bg-emerald-500/25 text-emerald-300' : 'bg-zinc-800/60 text-zinc-700'}`}>
+                {dailies[d]?.creatine ? '✓' : '·'}
+              </div>
+              <span className="text-[10px] font-bold text-zinc-600">{JOURS_COURTS[fromISO(d).getDay()]}</span>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="mt-3 border-orange-500/20 bg-orange-500/5">
+        <p className="text-xs text-orange-100/80 leading-relaxed">
+          💊 <b>Créatine, mode d'emploi (recherche 2024) :</b> {goals.creatineDose} g par jour, tous les jours,
+          <b> même les jours de repos</b>. Pas besoin de phase de charge — la saturation se fait en ~4 semaines.
+          Le timing n'a quasi pas d'importance : <b>la seule chose qui compte, c'est de ne pas oublier</b> (d'où le streak).
+          Prends-la avec un repas ou ton smoothie, et bois bien (elle appelle l'eau dans le muscle).
+        </p>
+      </Card>
 
       {/* Historique 7 jours */}
       <SectionTitle>7 derniers jours</SectionTitle>

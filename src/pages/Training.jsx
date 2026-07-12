@@ -451,7 +451,15 @@ function ExerciseSheet({ exId, levels, workouts, onClose }) {
   return (
     <Sheet open={!!exId} onClose={onClose} title={ex.name}>
       <p className="text-sm text-zinc-400 mb-1">{ex.muscles}</p>
-      <p className="text-sm text-zinc-300 mb-4">💡 {ex.tip}</p>
+      <p className="text-sm text-zinc-300 mb-3">💡 {ex.tip}</p>
+
+      <div className="rounded-xl bg-orange-500/10 border border-orange-500/25 p-3 mb-4">
+        <p className="text-xs text-orange-100/90 leading-relaxed">
+          🎯 <b>Intensité (recherche 2024) :</b> pour construire du muscle, termine chaque série à
+          <b> 1-2 répétitions de l'échec</b> — la dernière série, tu peux aller jusqu'à l'échec complet.
+          Inutile de te tuer sur toutes les séries : c'est cette proximité de l'échec + le repos complet qui font grossir.
+        </p>
+      </div>
 
       <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Échelle de progression</p>
       <div className="flex flex-col gap-1.5 mb-5">

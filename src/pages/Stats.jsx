@@ -98,6 +98,7 @@ export default function Stats() {
           <Metric label="Sommeil (moy.)" value={summary.avgSleep != null ? `${summary.avgSleep.toFixed(1)} h` : '—'} emoji="😴" good={summary.avgSleep >= 7.5} />
           <Metric label="Repas cochés" value={`${summary.mealsChecked}/${summary.mealsTotal}`} emoji="🍽️" good={summary.mealsChecked >= summary.mealsTotal * 0.8} />
           <Metric label="Cardio" value={`${summary.cardioMin} min`} emoji="🏊" good={summary.cardioMin > 0 && summary.cardioMin <= 120} />
+          {goals.creatine && <Metric label="Créatine" value={`${summary.creatineDays}/7 j`} emoji="💊" good={summary.creatineDays >= 6} />}
           <Metric label="Photos" value={`${photoCount} au total`} emoji="📸" good={photoCount > 0} />
         </div>
       </Card>
@@ -176,6 +177,19 @@ export default function Stats() {
           <Setting label="Journée normale (kcal actives)">
             <Stepper value={goals.burnBaseline ?? 700} onChange={(_, d) => setGoals((g) => ({ ...g, burnBaseline: clampStep(g.burnBaseline ?? 700, d, 300, 1500) }))} min={300} max={1500} step={50} />
           </Setting>
+          <Setting label="Suivi créatine">
+            <button
+              onClick={() => setGoals((g) => ({ ...g, creatine: !(g.creatine ?? true) }))}
+              className={`press rounded-xl px-4 py-2 text-sm font-black ${goals.creatine ?? true ? 'bg-emerald-500 text-zinc-950' : 'bg-zinc-800 text-zinc-400'}`}
+            >
+              {goals.creatine ?? true ? 'Activé' : 'Désactivé'}
+            </button>
+          </Setting>
+          {(goals.creatine ?? true) && (
+            <Setting label="Dose créatine / jour (g)">
+              <Stepper value={goals.creatineDose ?? 5} onChange={(_, d) => setGoals((g) => ({ ...g, creatineDose: clampStep(g.creatineDose ?? 5, d, 3, 10) }))} min={3} max={10} step={1} />
+            </Setting>
+          )}
         </div>
         <p className="text-[11px] text-zinc-600 mt-4">
           Transfo du {fmtShort(goals.startDate)} au {fmtShort(goals.endDate)} · départ {goals.startWeight} kg

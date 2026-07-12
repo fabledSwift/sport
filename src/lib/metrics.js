@@ -126,8 +126,23 @@ export function weeklySummary({ weights, workouts, dailies, mealChecks, mondayIS
   }
 
   const cardioMin = days.reduce((s, d) => s + (dailies[d]?.cardio?.min || 0), 0)
+  const creatineDays = days.filter((d) => dailies[d]?.creatine).length
 
-  return { sessionsDone, sessionsPlanned, weightDelta, avgWater, avgSleep, mealsChecked, mealsTotal, cardioMin }
+  return { sessionsDone, sessionsPlanned, weightDelta, avgWater, avgSleep, mealsChecked, mealsTotal, cardioMin, creatineDays }
+}
+
+// Régularité créatine : jours consécutifs pris (aujourd'hui ne casse pas s'il n'est pas encore coché)
+export function creatineStreak(dailies) {
+  let streak = 0
+  let day = todayISO()
+  if (!dailies[day]?.creatine) day = addDays(day, -1)
+  for (let i = 0; i < 400; i++) {
+    if (dailies[day]?.creatine) {
+      streak++
+      day = addDays(day, -1)
+    } else break
+  }
+  return streak
 }
 
 // Volume total d'une séance (reps cumulées)
