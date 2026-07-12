@@ -5,12 +5,21 @@ import { MEALS, INGREDIENTS, WEEK_A, WEEK_B, WEEK_C, WEEK_D } from '../src/lib/n
 const JOURS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 let errors = 0
 
-// Intégrité des repas
+// Intégrité des repas + seuil de leucine (~25 g de protéines / repas principal,
+// ~18 g pour une collation) pour maximiser la synthèse musculaire.
+const MIN_PROT = { pdj: 25, col: 15, dej: 30, smo: 22, din: 30 }
 for (const [id, meal] of Object.entries(MEALS)) {
   for (const [ing] of meal.ingredients) {
     if (!INGREDIENTS[ing]) { console.error(`❌ ${id} : ingrédient inconnu "${ing}"`); errors++ }
   }
+  const floor = MIN_PROT[meal.slot]
+  if (meal.prot < floor) {
+    console.warn(`⚠️  ${id} (${meal.slot}) : ${meal.prot} g prot < seuil ${floor} g`)
+  }
 }
+const counts = {}
+for (const m of Object.values(MEALS)) counts[m.slot] = (counts[m.slot] || 0) + 1
+console.log('Recettes par créneau :', JSON.stringify(counts), '· total', Object.keys(MEALS).length, '\n')
 
 for (const [label, week] of [['A', WEEK_A], ['B', WEEK_B], ['C', WEEK_C], ['D', WEEK_D]]) {
   for (let i = 0; i < 7; i++) {

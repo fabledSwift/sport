@@ -63,6 +63,19 @@ export const INGREDIENTS = {
   avocat:             { name: 'Avocats', unit: 'pc', rayon: 'Fruits & légumes', price: 1.0 },
   'fromage-portions': { name: 'Fromages portions (type Babybel)', unit: 'pc', rayon: 'Frais', price: 0.25 },
   'poisson-blanc':    { name: 'Poisson blanc surgelé (colin)', unit: 'g', rayon: 'Surgelés', price: 0.007 },
+  'dinde-hachee':     { name: 'Dinde hachée', unit: 'g', rayon: 'Frais', price: 0.009 },
+  quinoa:             { name: 'Quinoa (cru)', unit: 'g', rayon: 'Épicerie', price: 0.006 },
+  boulgour:           { name: 'Boulgour (cru)', unit: 'g', rayon: 'Épicerie', price: 0.003 },
+  'haricots-blancs':  { name: 'Haricots blancs (boîte, égouttés)', unit: 'g', rayon: 'Épicerie', price: 0.003 },
+  cottage:            { name: 'Cottage cheese', unit: 'g', rayon: 'Frais', price: 0.005 },
+  epinards:           { name: 'Épinards surgelés', unit: 'g', rayon: 'Surgelés', price: 0.002 },
+  poivron:            { name: 'Poivrons', unit: 'pc', rayon: 'Fruits & légumes', price: 0.6 },
+  carottes:           { name: 'Carottes', unit: 'g', rayon: 'Fruits & légumes', price: 0.0012 },
+  'petit-pois':       { name: 'Petits pois (boîte/surgelés)', unit: 'g', rayon: 'Surgelés', price: 0.002 },
+  'chocolat-noir':    { name: 'Chocolat noir', unit: 'g', rayon: 'Épicerie', price: 0.012 },
+  dattes:             { name: 'Dattes', unit: 'g', rayon: 'Épicerie', price: 0.008 },
+  'galette-riz':      { name: 'Galettes de riz', unit: 'pc', rayon: 'Épicerie', price: 0.12 },
+  raisins:            { name: 'Raisins secs', unit: 'g', rayon: 'Épicerie', price: 0.007 },
 }
 
 // kcal / prot ≈ estimations honnêtes par repas
@@ -171,6 +184,36 @@ export const MEALS = {
       'Un fruit pour finir. Petit-déj salé qui cale bien.',
     ],
   },
+  'pdj-cottage-oeufs': {
+    name: 'Cottage cheese & œufs', emoji: '🍳', slot: 'pdj', kcal: 630, prot: 47, prep: '8 min',
+    ingredients: [['cottage', 200], ['oeuf', 3], ['pain-complet', 60], ['fruit', 1]],
+    recipe: [
+      'Œufs brouillés doux, cottage cheese salé-poivré à côté sur le pain.',
+      'Un fruit. Presque 50 g de protéines pour lancer les jours de tractions.',
+    ],
+    astuce: 'Le cottage cheese : caséine à digestion lente, top le matin comme le soir.',
+  },
+  'pdj-porridge-dattes': {
+    name: 'Porridge dattes-amandes', emoji: '🌴', slot: 'pdj', kcal: 730, prot: 30, prep: '6 min',
+    ingredients: [['flocons-avoine', 80], ['lait-entier', 300], ['dattes', 40], ['amandes', 20], ['skyr', 100]],
+    recipe: [
+      'Porridge flocons + lait au micro-ondes, dattes coupées fondues dedans.',
+      'Skyr et amandes par-dessus. Sucré naturellement, énergie longue durée.',
+    ],
+  },
+  'pdj-smoothie-bowl': {
+    name: 'Smoothie bowl protéiné', emoji: '🥣', slot: 'pdj', kcal: 690, prot: 38, prep: '5 min',
+    ingredients: [['skyr', 200], ['banane', 1], ['fruits-rouges', 100], ['flocons-avoine', 50], ['beurre-cacahuete', 15], ['miel', 10]],
+    recipe: [
+      'Blender : skyr + banane + fruits rouges (épais), verse dans un bol.',
+      'Topping : flocons, beurre de cacahuète, miel. Instagram et protéines.',
+    ],
+  },
+  'pdj-galettes-riz': {
+    name: 'Galettes de riz PB-banane', emoji: '🍘', slot: 'pdj', kcal: 640, prot: 30, prep: '4 min',
+    ingredients: [['galette-riz', 4], ['beurre-cacahuete', 30], ['banane', 1], ['skyr', 200], ['miel', 10]],
+    recipe: ['4 galettes de riz + beurre de cacahuète + banane. Bol de skyr au miel à côté. Croustillant et rapide.'],
+  },
   // ————— COLLATIONS PLAGE —————
   'col-sandwich-thon': {
     name: 'Sandwich thon', emoji: '🥪', slot: 'col', kcal: 460, prot: 34, prep: '4 min',
@@ -258,6 +301,35 @@ export const MEALS = {
     name: 'Pain-fromage-fruit', emoji: '🧀', slot: 'col', kcal: 420, prot: 17, prep: '1 min',
     ingredients: [['pain-complet', 60], ['fromage-portions', 3], ['fruit', 1]],
     recipe: ['3 portions de fromage, du pain, un fruit. Le snack qui survit à une journée de sac.'],
+  },
+  'col-wrap-thon': {
+    name: 'Wrap thon-crudités', emoji: '🌯', slot: 'col', kcal: 450, prot: 30, prep: '4 min',
+    ingredients: [['tortilla', 1], ['thon', 100], ['mayo', 10], ['tomates', 80], ['fromage-portions', 1]],
+    recipe: ['Thon-mayo + tomates + fromage roulés dans une tortilla. Coupé en deux, ça voyage bien.'],
+  },
+  'col-cottage-fruits': {
+    name: 'Cottage cheese-fruits-noix', emoji: '🫙', slot: 'col', kcal: 415, prot: 25, prep: '2 min',
+    ingredients: [['cottage', 200], ['fruit', 1], ['mix-fruits-secs', 25], ['miel', 10]],
+    recipe: ['Bocal de cottage cheese, fruit en dés, mix noix, filet de miel. Frais et protéiné.'],
+  },
+  'col-energy-balls': {
+    name: 'Energy balls dattes-avoine', emoji: '⚡', slot: 'col', kcal: 460, prot: 13, prep: 'meal prep',
+    ingredients: [['dattes', 60], ['flocons-avoine', 40], ['beurre-cacahuete', 20], ['chocolat-noir', 15]],
+    recipe: [
+      'Dimanche : mixe dattes + flocons + beurre de cacahuète + pépites de choco, forme des boules.',
+      'Emporte-en 3-4. Énergie dense qui tient au chaud dans le sac.',
+    ],
+    astuce: 'Se gardent une semaine au frigo. Bien mieux que les barres du commerce.',
+  },
+  'col-banane-choco': {
+    name: 'Banane, choco noir & noix', emoji: '🍫', slot: 'col', kcal: 405, prot: 9, prep: '0 min',
+    ingredients: [['banane', 2], ['chocolat-noir', 25], ['mix-fruits-secs', 25]],
+    recipe: ['2 bananes, quelques carrés de chocolat noir, une poignée de noix. Le snack anti-fringale pur.'],
+  },
+  'col-riz-au-lait-pot': {
+    name: 'Pot de riz au lait', emoji: '🍮', slot: 'col', kcal: 440, prot: 20, prep: 'meal prep',
+    ingredients: [['riz', 40], ['lait-entier', 250], ['skyr', 100], ['miel', 15], ['raisins', 20]],
+    recipe: ['Riz au lait cuit le dimanche, en pot avec skyr et raisins secs. Réconfortant, tient bien au frais.'],
   },
   // ————— DÉJEUNERS (BOX MEAL PREP) —————
   'dej-riz-poulet': {
@@ -397,6 +469,64 @@ export const MEALS = {
     ingredients: [['pois-chiches', 200], ['thon', 140], ['tomates', 150], ['concombre', 100], ['huile-olive', 10], ['pain-complet', 60]],
     recipe: ['Tout dans une boîte : pois chiches égouttés, thon, tomates, concombre, huile-citron. Pain à côté.'],
   },
+  'dej-quinoa-poulet': {
+    name: 'Buddha bowl quinoa-poulet', emoji: '🥙', slot: 'dej', kcal: 780, prot: 52, prep: 'meal prep',
+    ingredients: [['quinoa', 90], ['poulet', 140], ['pois-chiches', 80], ['carottes', 100], ['avocat', 0.5], ['huile-olive', 10]],
+    recipe: [
+      'Quinoa cuit le dimanche (protéine complète), poulet du meal prep.',
+      'Bol : quinoa + poulet + pois chiches + carottes râpées + demi-avocat. Sauce huile-citron.',
+    ],
+    astuce: 'Le quinoa contient les 9 acides aminés essentiels — rare pour une graine.',
+  },
+  'dej-boulgour-dinde': {
+    name: 'Boulgour dinde-poivrons', emoji: '🌶️', slot: 'dej', kcal: 760, prot: 48, prep: 'meal prep',
+    ingredients: [['boulgour', 90], ['dinde-hachee', 130], ['poivron', 1], ['sauce-tomate', 100], ['huile-olive', 5]],
+    recipe: [
+      'Dinde hachée revenue avec poivrons et épices (dimanche).',
+      'Sur le boulgour cuit à l’eau bouillante en 12 min. Léger et riche en protéines.',
+    ],
+    astuce: 'La dinde hachée : aussi protéinée que le poulet, encore moins chère.',
+  },
+  'dej-riz-haricots': {
+    name: 'Riz-haricots-œuf (rice & beans)', emoji: '🫘', slot: 'dej', kcal: 785, prot: 33, prep: 'meal prep',
+    ingredients: [['riz', 90], ['haricots-rouges', 150], ['haricots-blancs', 80], ['oeuf', 2], ['huile-olive', 10]],
+    recipe: [
+      'Riz + haricots rouges + blancs réchauffés, épices cajun.',
+      '2 œufs durs par-dessus. Le combo céréale + légumineuse = protéine complète, ultra économique.',
+    ],
+  },
+  'dej-tortilla-froide': {
+    name: 'Tortilla de pommes de terre (part)', emoji: '🥔', slot: 'dej', kcal: 720, prot: 34, prep: 'meal prep',
+    ingredients: [['patates', 300], ['oeuf', 4], ['jambon', 60], ['huile-olive', 10], ['fruit', 1]],
+    recipe: [
+      'Grande tortilla espagnole faite le dimanche (patates + œufs + dés de jambon).',
+      'Une belle part froide + un fruit. Se transporte parfaitement, se mange sans couverts.',
+    ],
+  },
+  'dej-salade-cesar': {
+    name: 'Salade César maison', emoji: '🥬', slot: 'dej', kcal: 690, prot: 50, prep: '8 min',
+    ingredients: [['poulet', 150], ['pain-complet', 60], ['parmesan', 30], ['oeuf', 1], ['mayo', 15], ['huile-olive', 5]],
+    recipe: [
+      'Poulet du meal prep, croûtons de pain grillé, copeaux de parmesan, œuf dur.',
+      'Sauce express : mayo + un peu d’eau + citron + parmesan. La César du sportif.',
+    ],
+  },
+  'dej-wraps-dinde': {
+    name: 'Wraps dinde-avocat', emoji: '🥑', slot: 'dej', kcal: 745, prot: 44, prep: '10 min',
+    ingredients: [['tortilla', 2], ['dinde-hachee', 130], ['avocat', 0.5], ['tomates', 100], ['fromage-portions', 2]],
+    recipe: [
+      'Dinde hachée épicée revenue à la poêle, laisse refroidir.',
+      'Roule dans les tortillas avec avocat écrasé, tomates, fromage. Le wrap qui rassasie.',
+    ],
+  },
+  'dej-poke-thon': {
+    name: 'Poke bowl thon-riz', emoji: '🍍', slot: 'dej', kcal: 735, prot: 42, prep: 'meal prep',
+    ingredients: [['riz', 100], ['thon', 140], ['mais', 60], ['concombre', 80], ['avocat', 0.5], ['huile-olive', 5]],
+    recipe: [
+      'Riz froid du meal prep en base, thon émietté, maïs, concombre, avocat.',
+      'Sauce soja-sésame si tu as. Le poke bowl maison à 2,50 € au lieu de 12 €.',
+    ],
+  },
   // ————— POST-BOULOT —————
   'smo-gainer': {
     name: 'Smoothie gainer maison', emoji: '🥤', slot: 'smo', kcal: 655, prot: 32, prep: '3 min',
@@ -468,6 +598,30 @@ export const MEALS = {
       'Blender : bananes congelées + skyr + lait + cacao + PB = glace crémeuse minute.',
     ],
     astuce: 'La « nice cream » : le dessert glacé de l’été qui compte comme un vrai apport.',
+  },
+  'smo-cottage-ananas': {
+    name: 'Cottage cheese ananas-miel', emoji: '🍍', slot: 'smo', kcal: 430, prot: 32, prep: '2 min',
+    ingredients: [['cottage', 250], ['fruit', 1], ['miel', 20], ['amandes', 20]],
+    recipe: ['Cottage cheese + fruit en dés + miel + amandes. 32 g de protéines sans blender, sans cuisson.'],
+  },
+  'smo-dattes-choco': {
+    name: 'Shake dattes-choco', emoji: '🌴', slot: 'smo', kcal: 560, prot: 28, prep: '3 min',
+    ingredients: [['lait-entier', 300], ['dattes', 40], ['cacao', 15], ['skyr', 150], ['flocons-avoine', 30]],
+    recipe: ['Blender : lait + dattes (sucre naturel) + cacao + skyr + flocons. Sucré sans sucre ajouté.'],
+  },
+  'smo-vert': {
+    name: 'Smoothie vert costaud', emoji: '🥬', slot: 'smo', kcal: 490, prot: 30, prep: '3 min',
+    ingredients: [['lait', 250], ['skyr', 150], ['banane', 1], ['epinards', 50], ['beurre-cacahuete', 15], ['miel', 15]],
+    recipe: [
+      'Blender : lait + skyr + banane + poignée d’épinards + PB + miel.',
+      'On ne goûte pas les épinards, mais on encaisse le fer et les vitamines.',
+    ],
+    astuce: 'La ruse pour caser des légumes verts sans y penser.',
+  },
+  'smo-avoine-cafe': {
+    name: 'Proffee avoine-café', emoji: '☕', slot: 'smo', kcal: 470, prot: 30, prep: '3 min',
+    ingredients: [['lait-entier', 300], ['skyr', 150], ['flocons-avoine', 40], ['miel', 15]],
+    recipe: ['Un café refroidi + lait + skyr + flocons + miel au blender, avec glaçons. Le coup de fouet protéiné.'],
   },
   // ————— DÎNERS —————
   'din-omelette': {
@@ -613,6 +767,73 @@ export const MEALS = {
     name: 'Purée maison-jambon-fromage', emoji: '🥔', slot: 'din', kcal: 705, prot: 41, prep: '15 min',
     ingredients: [['patates', 400], ['lait', 100], ['beurre', 10], ['jambon', 120], ['parmesan', 20], ['legumes', 150]],
     recipe: ['Purée maison au micro-ondes (patates + lait + beurre), jambon et fromage râpé, légumes à côté.'],
+  },
+  'din-chili-dinde': {
+    name: 'Chili con carne à la dinde', emoji: '🌶️', slot: 'din', kcal: 780, prot: 52, prep: '18 min',
+    ingredients: [['dinde-hachee', 150], ['haricots-rouges', 200], ['sauce-tomate', 150], ['riz', 80], ['poivron', 1]],
+    recipe: [
+      'Dinde hachée + poivrons revenus, sauce tomate + haricots + cumin/paprika, 10 min.',
+      'Sur le riz du meal prep. Version plus maigre du chili, encore plus de protéines.',
+    ],
+  },
+  'din-quinoa-saumon': {
+    name: 'Quinoa-colin-épinards', emoji: '🐟', slot: 'din', kcal: 690, prot: 46, prep: '15 min',
+    ingredients: [['quinoa', 90], ['poisson-blanc', 180], ['epinards', 150], ['huile-olive', 10], ['parmesan', 15]],
+    recipe: [
+      'Colin surgelé poêlé avec citron, épinards fondus à côté.',
+      'Sur le quinoa. Un dîner complet de qualité restaurant pour 3 €.',
+    ],
+  },
+  'din-omelette-pdt': {
+    name: 'Omelette paysanne', emoji: '🍳', slot: 'din', kcal: 720, prot: 38, prep: '15 min',
+    ingredients: [['oeuf', 4], ['patates', 250], ['jambon', 60], ['parmesan', 25], ['legumes', 100]],
+    recipe: ['Pommes de terre en dés dorées, jambon, puis 4 œufs battus et fromage. Omelette épaisse et rassasiante.'],
+  },
+  'din-nouilles-saute': {
+    name: 'Wok pâtes-dinde-légumes', emoji: '🥡', slot: 'din', kcal: 800, prot: 50, prep: '15 min',
+    ingredients: [['pates', 120], ['dinde-hachee', 140], ['poivron', 1], ['carottes', 100], ['huile-olive', 10]],
+    recipe: [
+      'Wok bien chaud : dinde hachée, poivrons et carottes en lamelles.',
+      'Ajoute les pâtes cuites, sauce soja. Style nouilles sautées asiatiques.',
+    ],
+  },
+  'din-gratin-brocoli': {
+    name: 'Gratin poulet-brocoli-riz', emoji: '🥦', slot: 'din', kcal: 785, prot: 55, prep: '20 min',
+    ingredients: [['poulet', 150], ['riz', 90], ['legumes', 200], ['creme', 60], ['parmesan', 30]],
+    recipe: [
+      'Riz + poulet + brocolis dans un plat, crème et fromage râpé.',
+      '15 min au four (ou couvercle poêle). Le gratin réconfortant complet.',
+    ],
+  },
+  'din-galette-sarrasin': {
+    name: 'Assiette œufs-haricots-patates', emoji: '🍽️', slot: 'din', kcal: 700, prot: 34, prep: '12 min',
+    ingredients: [['oeuf', 3], ['haricots-blancs', 200], ['patates', 200], ['huile-olive', 10], ['parmesan', 20]],
+    recipe: [
+      'Pommes de terre sautées + haricots blancs réchauffés à l’ail.',
+      '3 œufs au plat par-dessus, fromage. Le dîner rustique complet et pas cher.',
+    ],
+  },
+  'din-poelee-mexicaine': {
+    name: 'Poêlée mexicaine', emoji: '🌽', slot: 'din', kcal: 815, prot: 47, prep: '15 min',
+    ingredients: [['dinde-hachee', 140], ['riz', 90], ['haricots-rouges', 150], ['mais', 80], ['poivron', 1], ['huile-olive', 5]],
+    recipe: ['Tout dans une grande poêle : dinde, poivron, maïs, haricots, épices tex-mex, puis le riz. Un seul ustensile à laver.'],
+  },
+  'din-boulettes-boulgour': {
+    name: 'Boulettes-boulgour-tzatziki', emoji: '🧆', slot: 'din', kcal: 760, prot: 45, prep: '18 min',
+    ingredients: [['steak-hache', 125], ['boulgour', 90], ['concombre', 100], ['fromage-blanc', 100], ['huile-olive', 10]],
+    recipe: [
+      'Boulettes de steak haché aux herbes, poêlées.',
+      'Boulgour + tzatziki express (fromage blanc + concombre râpé + ail). Saveurs grecques.',
+    ],
+  },
+  'din-soupe-lentilles': {
+    name: 'Dahl de lentilles corsé', emoji: '🍲', slot: 'din', kcal: 730, prot: 35, prep: '20 min',
+    ingredients: [['lentilles', 100], ['lait-coco', 100], ['riz', 80], ['epinards', 100], ['oeuf', 2]],
+    recipe: [
+      'Lentilles corail fondues dans le lait de coco épicé (curry, gingembre), épinards à la fin.',
+      'Sur le riz, avec 2 œufs durs. Réconfortant, végétarien, plein de fer.',
+    ],
+    astuce: 'Encore meilleur réchauffé — double la dose pour le lendemain midi.',
   },
   'din-patates-oeufs': {
     name: 'Poêlée paysanne', emoji: '🥔', slot: 'din', kcal: 730, prot: 34, prep: '20 min',
